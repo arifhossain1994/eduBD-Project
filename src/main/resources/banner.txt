@@ -1,0 +1,8 @@
+${AnsiColor.GREEN}
+${AnsiColor.GREEN}         _________             __    __      __
+${AnsiColor.GREEN}       /   ______  \          |  |  |  |    |  |
+${AnsiColor.GREEN}      /   __________\   ______|  |  |  |    |  |
+${AnsiColor.GREEN}      \  \        ___  /  ____   |  |  |    |  |
+${AnsiColor.GREEN}       \  \______/  /  |         |  |  \____/  | 
+${AnsiColor.GREEN}        \__________/    \________|   \________/
+${AnsiColor.GREEN}:: EDUbd RESTful Service - running spring boot ${spring-boot.version} ::${AnsiColor.DEFAULT}
