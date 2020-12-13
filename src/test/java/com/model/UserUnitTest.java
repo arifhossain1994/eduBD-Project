@@ -14,4 +14,10 @@ public class UserUnitTest{
 	String s=user.getFirst_name();
 	assertNull(s);
 	}
+
+	@Test
+	public void testUserPassword(){
+		String s=user.getPassword();
+		assertNull(s);
+	}
 }
