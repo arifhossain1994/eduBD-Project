@@ -1,8 +1,7 @@
-${AnsiColor.GREEN}
-${AnsiColor.GREEN}         _________             __    __      __
-${AnsiColor.GREEN}       /   ______  \          |  |  |  |    |  |
-${AnsiColor.GREEN}      /   __________\   ______|  |  |  |    |  |
-${AnsiColor.GREEN}      \  \        ___  /  ____   |  |  |    |  |
-${AnsiColor.GREEN}       \  \______/  /  |         |  |  \____/  | 
-${AnsiColor.GREEN}        \__________/    \________|   \________/
-${AnsiColor.GREEN}:: EDUbd RESTful Service - running spring boot ${spring-boot.version} ::${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}                 __             ______     ______
+${AnsiColor.GREEN}                |  ]           |_   _ \   |_   _ `.
+${AnsiColor.GREEN}   .---.    .--.| |   __   _     | |_) |    | | `. \
+${AnsiColor.GREEN}  / /__\\ / /'`\' |  [  | | |    |  __'.    | |  | |
+${AnsiColor.GREEN}  | \__., | \__/  |  |  \_/ |,  _| |__) |  _| |_.' /
+${AnsiColor.GREEN}   '.__.'  '.__.;__]  '.__.'_/ |_______/  |______.'
+${AnsiColor.GREEN}:: EDUbd RESTful Service - running spring boot ${spring-boot.version}::${AnsiColor.DEFAULT}
