@@ -1,6 +1,12 @@
 package com;
 
+import com.db.*;
+import com.sql.dao.BaseRowMapper;
+import com.sql.statement.ISqlStatementsFileLoader;
+import com.sql.statement.SqlStatementsFileLoader;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +15,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.sql.DataSource;
 
 @Configuration
 @ConfigurationProperties(prefix = "service")
@@ -42,6 +45,34 @@ public class ApplicationConfig {
         return new RestTemplate();
     }
 
+
+    @Bean
+    @Primary
+    public DataSource dataSource() {
+        LOGGER.info("Loading DataSource");
+        PoolProperties poolProperties = new PoolProperties();
+        poolProperties.setDriverClassName(dbDriverClassName);
+        poolProperties.setUrl(dbDriverUrl);
+        poolProperties.setUsername(dbUsername);
+        poolProperties.setPassword(dbPassword);
+        poolProperties.setTestOnBorrow(true);
+        poolProperties.setValidationQuery("SELECT 1");
+
+        // Set additional pool properties
+        poolProperties.setMaxWait(dbPoolMaxWait);
+        poolProperties.setRemoveAbandoned(dbPoolRemoveAbandoned);
+        poolProperties.setRemoveAbandonedTimeout(dbPoolRemoveAbandonedTimeout);
+        poolProperties.setLogAbandoned(dbPoolLogAbandoned);
+        poolProperties.setMaxAge(dbPoolMaxAge);
+        poolProperties.setMaxActive(600);
+
+        DataSource ds = new DataSource();
+        ds.setPoolProperties(poolProperties);
+        flyway(ds);
+
+        return ds;
+    }
+
     @Bean
     @Primary
     public Flyway flyway(DataSource dataSource) {
@@ -58,6 +89,30 @@ public class ApplicationConfig {
 
         return flyway;
     }
+
+
+    @Bean
+    public ISqlStatementsFileLoader sqlStatementsFileLoader() {
+        SqlStatementsFileLoader loader = new SqlStatementsFileLoader();
+        loader.setStatementResourceLocation(sqlStatementsResourceLocation);
+        return loader;
+    }
+
+
+
+    @Bean
+    public UserDao userDao(){
+        UserDao userDao = new UserDao();
+        userDao.setDataSource(dataSource());
+        userDao.setSqlStatementsFileLoader(sqlStatementsFileLoader());
+        userDao.setRowMapper(userDaoRowMapper());
+        return userDao;
+    }
+
+
+
+    @Bean
+    public UserDaoRowMapper userDaoRowMapper() { return new UserDaoRowMapper(); }
 
 
 
