@@ -10,4 +10,5 @@ public class Application {
         Thread.currentThread().setName("eduBD-Project");
         SpringApplication.run(Application.class, args);
     }
+
 }
