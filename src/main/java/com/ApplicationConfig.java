@@ -101,20 +101,28 @@ public class ApplicationConfig {
 
 
     @Bean
-    public UserDao userDao(){
-        UserDao userDao = new UserDao();
-        userDao.setDataSource(dataSource());
-        userDao.setSqlStatementsFileLoader(sqlStatementsFileLoader());
-        userDao.setRowMapper(userDaoRowMapper());
-        return userDao;
+    public AdminDao adminDao(){
+        AdminDao adminDao = new AdminDao();
+        adminDao.setDataSource(dataSource());
+        adminDao.setSqlStatementsFileLoader(sqlStatementsFileLoader());
+        adminDao.setRowMapper(adminDaoRowMapper());
+        return adminDao;
     }
 
-
+    @Bean
+    public AdminDaoRowMapper adminDaoRowMapper() { return new AdminDaoRowMapper(); }
 
     @Bean
-    public UserDaoRowMapper userDaoRowMapper() { return new UserDaoRowMapper(); }
+    public SchoolDao schoolDao(){
+        SchoolDao schoolDao = new SchoolDao();
+        schoolDao.setDataSource(dataSource());
+        schoolDao.setSqlStatementsFileLoader(sqlStatementsFileLoader());
+        schoolDao.setRowMapper(adminDaoRowMapper());
+        return schoolDao;
+    }
 
-
+    @Bean
+    public SchoolDaoRowMapper SchoolDaoRowMapper() { return new SchoolDaoRowMapper(); }
 
 
 
