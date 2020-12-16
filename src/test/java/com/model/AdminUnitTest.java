@@ -6,26 +6,26 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
 
 
-public class UserUnitTest {
+public class AdminUnitTest {
 
-    User obj= new User();
+    Admin obj= new Admin();
 
     @Test
-    public void testUser()
+    public void testAdmin()
     {
-        String name= obj.getName();
-        assertNull(name);
+        String firstName= obj.getFirst_name();
+        assertNull(firstName);
         assertNull(obj.getEmail());
         assertNull(obj.getPassword());
     }
 
     @Test
     public void testName() {
-        obj.setName("Arif Hossain");
-        assertEquals("Arif Hossain", obj.getName());
-        obj.setName("1234");
-        assertEquals("1234", obj.getName());
-        assertNotEquals("5555", obj.getName());
+        obj.setFirst_name("Arif");
+        assertEquals("Arif", obj.getFirst_name());
+        obj.setLast_name("1234");
+        assertEquals("1234", obj.getLast_name());
+        assertNotEquals("5555", obj.getLast_name());
 
     }
 

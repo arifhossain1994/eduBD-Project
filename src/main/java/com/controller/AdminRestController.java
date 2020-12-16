@@ -1,14 +1,12 @@
 package com.controller;
 
-import com.db.UserDao;
-import com.model.User;
-
+import com.db.AdminDao;
+import com.model.Admin;
 import io.micrometer.core.lang.NonNull;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -18,28 +16,26 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-public class UserRestController {
+public class AdminRestController {
 
-    public static final String BASE_USER_PATH = "/user/";
+    public static final String BASE_USER_PATH = "/admin/";
     public static final String GET_EMAIL_PATH = BASE_USER_PATH + "email/";
     public static final String DELETE_USER_PATH = BASE_USER_PATH + "delete/";
 
+    private final AdminDao adminDao;
 
-
-    private final UserDao userDao;
-
-    private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdminRestController.class);
 
     @Autowired
-    public UserRestController(UserDao userDao){this.userDao = userDao;}
+    public AdminRestController(AdminDao adminDao){this.adminDao = adminDao;}
 
     @ApiOperation(value = "Create User")
     @PostMapping(value = BASE_USER_PATH)
-    public User create (@NonNull @RequestBody User user,  @ApiIgnore HttpServletResponse response) throws IOException {
+    public Admin create (@NonNull @RequestBody Admin admin, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
-            Assert.isNull(user.getId(), "User ID must be null");
-            return userDao.create(user, null);
+            Assert.isNull(admin.getId(), "User ID must be null");
+            return adminDao.create(admin, null);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
@@ -54,8 +50,8 @@ public class UserRestController {
 
     @ApiOperation(value = "Read User")
     @GetMapping(value = BASE_USER_PATH + "{id}")
-    public User read(@NonNull @PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
-        User user = userDao.read(id);
+    public Admin read(@NonNull @PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
+        Admin user = adminDao.read(id);
         if (user == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "User with ID: " + id + " not found.");
             return null;
@@ -65,8 +61,8 @@ public class UserRestController {
 
     @ApiOperation(value = "Get user by email")
     @GetMapping(value = GET_EMAIL_PATH + "{email}")
-    public User readUserByEmail(@NonNull @PathVariable String email,  @ApiIgnore HttpServletResponse response) throws IOException {
-        User user = userDao.readByEmail(email);
+    public Admin readUserByEmail(@NonNull @PathVariable String email,  @ApiIgnore HttpServletResponse response) throws IOException {
+        Admin user = adminDao.readByEmail(email);
         if (user == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "User with email: " + email + " not found.");
             return null;
@@ -76,18 +72,18 @@ public class UserRestController {
 
     @ApiOperation(value = "Get All user")
     @GetMapping(value = BASE_USER_PATH+ "all/")
-    public List<User> readAll() {
-        return userDao.readAll();
+    public List<Admin> readAll() {
+        return adminDao.readAll();
     }
 
 
     @ApiOperation(value = "Update user")
     @PutMapping(value = BASE_USER_PATH)
-    public void update (@RequestBody User user, @ApiIgnore HttpServletResponse response) throws IOException {
+    public void update (@RequestBody Admin admin, @ApiIgnore HttpServletResponse response) throws IOException {
         try{
-            Assert.notNull(user.getId(), "User Id must not be null");
-            Assert.notNull(userDao.read(user.getId()), "Could not find user: " + user.getId() + " record not found.");
-            userDao.update(user);
+            Assert.notNull(admin.getId(), "User Id must not be null");
+            Assert.notNull(adminDao.read(admin.getId()), "Could not find user: " + admin.getId() + " record not found.");
+            adminDao.update(admin);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
@@ -102,7 +98,7 @@ public class UserRestController {
     @DeleteMapping(DELETE_USER_PATH + "{id}")
     public @ResponseBody void delete  (@PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
         try {
-            userDao.delete(id);
+            adminDao.delete(id);
         } catch (Exception e){
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Could not delete user: " + id + " record not found.");
@@ -111,3 +107,4 @@ public class UserRestController {
 
 
 }
+
