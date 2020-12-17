@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Getter
 @Setter
 public class Admin extends BaseModel{
-    private Long school_id;
+    private Long school_id, admin_phone;
     private String first_name, last_name;
     private String email, password;
     private String status, role, image;

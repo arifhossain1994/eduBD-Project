@@ -11,7 +11,7 @@ public class AdminUnitTest {
     Admin obj= new Admin();
 
     @Test
-    public void testAdmin()
+    public void adminTest()
     {
         String firstName= obj.getFirst_name();
         assertNull(firstName);
@@ -20,7 +20,7 @@ public class AdminUnitTest {
     }
 
     @Test
-    public void testName() {
+    public void nameTest() {
         obj.setFirst_name("Arif");
         assertEquals("Arif", obj.getFirst_name());
         obj.setLast_name("1234");
@@ -30,7 +30,7 @@ public class AdminUnitTest {
     }
 
     @Test
-    public void testStatus()
+    public void statusTest()
     {
         obj.setStatus("suspended");
         assertEquals("suspended",obj.getStatus().toLowerCase());

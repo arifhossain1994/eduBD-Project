@@ -108,21 +108,21 @@ public class ApplicationConfig {
         adminDao.setRowMapper(adminDaoRowMapper());
         return adminDao;
     }
-
     @Bean
     public AdminDaoRowMapper adminDaoRowMapper() { return new AdminDaoRowMapper(); }
+
 
     @Bean
     public SchoolDao schoolDao(){
         SchoolDao schoolDao = new SchoolDao();
         schoolDao.setDataSource(dataSource());
         schoolDao.setSqlStatementsFileLoader(sqlStatementsFileLoader());
-        schoolDao.setRowMapper(adminDaoRowMapper());
+        schoolDao.setRowMapper(schoolDaoRowMapper());
         return schoolDao;
     }
 
     @Bean
-    public SchoolDaoRowMapper SchoolDaoRowMapper() { return new SchoolDaoRowMapper(); }
+    public SchoolDaoRowMapper schoolDaoRowMapper() { return new SchoolDaoRowMapper(); }
 
 
 

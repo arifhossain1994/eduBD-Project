@@ -5,6 +5,7 @@ INSERT INTO admins (
     last_name,
     email,
     password,
+    admin_phone,
     status,
     image,
     created_date,
@@ -18,6 +19,7 @@ INSERT INTO admins (
              :last_name,
              :email ,
              :password,
+             :admin_phone,
              :status ,
              :image ,
              :created_date,
@@ -34,7 +36,12 @@ SELECT * FROM admins WHERE id = :id;
 SELECT * FROM admins WHERE email = :email;
 
 --STATEMENT deleteAdmin
-DELETE FROM admins WHERE id = :id;
+UPDATE admins SET
+                  status = :status,
+                  updated_by =:updated_by,
+                  updated_date=:updated_date
+WHERE
+      id = :id;
 
 --STATEMENT updateAdmin
 UPDATE admins SET
@@ -42,6 +49,7 @@ UPDATE admins SET
                  last_name = :last_name,
                  email = :email,
                  password = :password,
+                 admin_phone = :admin_phone,
                  status = :status,
                  image = :image,
                  updated_date = :updated_date,

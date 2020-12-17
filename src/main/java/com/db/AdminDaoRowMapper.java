@@ -18,12 +18,13 @@ import static com.db.AdminDaoRowMapper.AdminColumnType.STATUS;
 import static com.db.AdminDaoRowMapper.AdminColumnType.ROLE;
 import static com.db.AdminDaoRowMapper.AdminColumnType.IMAGE;
 import static com.db.AdminDaoRowMapper.AdminColumnType.SCHOOL_ID;
+import static com.db.AdminDaoRowMapper.AdminColumnType.ADMIN_PHONE;
 
 public class AdminDaoRowMapper extends BaseRowMapper<Admin>{
 
 
     public enum AdminColumnType {
-        SCHOOL_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, STATUS, ROLE, IMAGE;
+        SCHOOL_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, ADMIN_PHONE, STATUS, ROLE, IMAGE;
         private String columnName;
         AdminColumnType() {
             columnName = name().toLowerCase();
@@ -45,6 +46,7 @@ public class AdminDaoRowMapper extends BaseRowMapper<Admin>{
         map.put(LAST_NAME.getColumnName(),admin.getLast_name());
         map.put(EMAIL.getColumnName(),admin.getEmail());
         map.put(PASSWORD.getColumnName(),admin.getPassword());
+        map.put(ADMIN_PHONE.getColumnName(),admin.getAdmin_phone());
         map.put(STATUS.getColumnName(),admin.getStatus());
         map.put(ROLE.getColumnName(),admin.getRole());
         map.put(IMAGE.getColumnName(),admin.getImage());
@@ -64,6 +66,7 @@ public class AdminDaoRowMapper extends BaseRowMapper<Admin>{
         admin.setLast_name(rs.getString(LAST_NAME.getColumnName()));
         admin.setEmail(rs.getString(EMAIL.getColumnName()));
         admin.setPassword(rs.getString(PASSWORD.getColumnName()));
+        admin.setAdmin_phone(rs.getLong(ADMIN_PHONE.getColumnName()));
         admin.setStatus(rs.getString(STATUS.getColumnName()));
         admin.setRole(rs.getString(ROLE.getColumnName()));
         admin.setImage(rs.getString(IMAGE.getColumnName()));

@@ -35,6 +35,8 @@ public class AdminRestController {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(admin.getId(), "User ID must be null");
+            Assert.notNull(admin.getEmail(), "User email cannot be null.");
+            Assert.isNull(adminDao.readByEmail(admin.getEmail()),"User already exists in the system.");
             return adminDao.create(admin, null);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
@@ -98,6 +100,8 @@ public class AdminRestController {
     @DeleteMapping(DELETE_USER_PATH + "{id}")
     public @ResponseBody void delete  (@PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
         try {
+            Assert.notNull(id,"Admin ID cannot be null");
+            Assert.notNull(adminDao.read(id),"Admin does not exist in the system.");
             adminDao.delete(id);
         } catch (Exception e){
             logger.error(e.getMessage(), e);
