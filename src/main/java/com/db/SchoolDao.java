@@ -1,5 +1,6 @@
 package com.db;
 
+import com.model.Admin;
 import com.model.School;
 import com.sql.dao.BaseDao;
 import com.sql.dao.BaseRowMapper;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class SchoolDao extends BaseDao<School> {
     private static final Logger LOG = LoggerFactory.getLogger(SchoolDao.class);
@@ -21,9 +23,9 @@ public class SchoolDao extends BaseDao<School> {
         if (school == null) {
             throw new DaoException("Request to create a new school received null values.");
         } else if (school.getId() != null) {
-            throw new DaoException("When creating a new user the id should be null, but was set to " + school.getId());
+            throw new DaoException("When creating a new school the id should be null, but was set to " + school.getId());
         }
-        LOG.trace("UserDao creating user {}", school);
+        LOG.trace("School Dao creating user {}", school);
 
         school.setCreated_date(LocalDateTime.now());
         school.setUpdated_date(LocalDateTime.now());
@@ -32,7 +34,7 @@ public class SchoolDao extends BaseDao<School> {
                 new MapSqlParameterSource(rowMapper.mapObject(school)), keyHolder, new String[]{BaseRowMapper.BaseColumnType.ID.name()});
 
         if (result != 1) {
-            throw new DaoException(String.format("UserDao: Failed attempt to create user %s - affected %s rows", school.toString(), result));
+            throw new DaoException(String.format("SchoolDao: Failed attempt to create user %s - affected %s rows", school.toString(), result));
         }
         Long id = keyHolder.getKey().longValue();
         school.setId(id);
@@ -50,6 +52,21 @@ public class SchoolDao extends BaseDao<School> {
         return null;
     }
 
+    public School readByEmail (String email){
+        try {
+            return (School) this.jdbcTemplate.queryForObject(sql("readSchoolByEmail"), new MapSqlParameterSource("school_email", email), rowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            LOG.error("School dao couldn't get a school with email: " + email);
+        }
+        return null;
+    }
+
+    public List<School> readAll() {
+        LOG.trace("Reading all Schools from the Table.");
+        return jdbcTemplate.query(sql("readAllSchools"), rowMapper);
+
+    }
+
     @Override
     public void update(School school) {
         if (school == null){
@@ -65,7 +82,11 @@ public class SchoolDao extends BaseDao<School> {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) { //TODO
+        School school=read(id);
+        school.setStatus("Inactive");
+        school.setUpdated_date(LocalDateTime.now());
+        school.setUpdated_by(null);// this will change later.
         int result = this.jdbcTemplate.update(sql("deleteSchool"),new MapSqlParameterSource("id", id));
         if(result != 1){
             throw new DaoException(String.format("School Dao: Failed attempt to update user %s affected %s rows", id, result));

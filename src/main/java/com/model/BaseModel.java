@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class BaseModel {
     Long id, created_by, updated_by;
+
     @ApiModelProperty(hidden = true)
     private LocalDateTime created_date;
     @ApiModelProperty(hidden = true)

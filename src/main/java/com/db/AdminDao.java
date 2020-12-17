@@ -45,9 +45,6 @@ public class AdminDao extends BaseDao<Admin> {
         Long id = keyHolder.getKey().longValue();
         admin.setId(id);
 
-        //UserAuditDao u= new UserAuditDao();
-        // u.create2(user, creatorId);
-
         return admin;
     }
 
@@ -83,7 +80,7 @@ public class AdminDao extends BaseDao<Admin> {
 
     public List<Admin> readAll() {
         LOG.trace("Reading all users from User Audit Table.");
-        return jdbcTemplate.query(sql("getAllUsers"), rowMapper);
+        return jdbcTemplate.query(sql("getAllAdmins"), rowMapper);
 
     }
 
@@ -105,10 +102,14 @@ public class AdminDao extends BaseDao<Admin> {
 
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) { // TODO
+        Admin admin=this.read(id);
+        admin.setStatus("Deleted");
+        admin.setUpdated_date(LocalDateTime.now());
+        admin.setUpdated_by(null); // this will change later.
         int result = this.jdbcTemplate.update(sql("deleteAdmin"),new MapSqlParameterSource("id", id));
         if(result != 1){
-            throw new DaoException(String.format("User Dao: Failed attempt to update user %s affected %s rows", id, result));
+            throw new DaoException(String.format("Admin Dao: Failed attempt to update user %s affected %s rows", id, result));
         }
     }
 }
