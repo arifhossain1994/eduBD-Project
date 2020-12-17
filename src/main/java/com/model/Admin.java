@@ -14,9 +14,6 @@ public class Admin extends BaseModel{
     private String email, password;
     private String status, role, image;
 
-
-
-
     @Override
     public boolean equals(Object object) {
         return object instanceof Admin && (this == object || EqualsBuilder.reflectionEquals(this, object));

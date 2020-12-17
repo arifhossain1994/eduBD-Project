@@ -354,6 +354,7 @@
                                 <artifactId>surefire-junit</artifactId>
                                 <version>${surefire-junit.version}</version>
                             </dependency>
+
                         </dependencies>
                         <configuration>
                             <includes>
