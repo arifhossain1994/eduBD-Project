@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.annotation.CheckForNull;
 
 public class AdminDao extends BaseDao<Admin> {
 
@@ -33,8 +34,9 @@ public class AdminDao extends BaseDao<Admin> {
         }
         LOG.trace("UserDao creating user {}", admin);
 
-        admin.setCreated_date(LocalDateTime.now());
-        admin.setUpdated_date(LocalDateTime.now());
+        admin.setStatus("ACTIVE");
+        admin.setCreatedDate(LocalDateTime.now());
+        admin.setUpdatedDate(LocalDateTime.now());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int result = this.jdbcTemplate.update(sql("createAdmin"),
                 new MapSqlParameterSource(rowMapper.mapObject(admin)), keyHolder, new String[]{BaseRowMapper.BaseColumnType.ID.name()});
@@ -42,8 +44,11 @@ public class AdminDao extends BaseDao<Admin> {
         if (result != 1) {
             throw new DaoException(String.format("UserDao: Failed attempt to create user %s - affected %s rows", admin.toString(), result));
         }
+
+        @CheckForNull
         Long id = keyHolder.getKey().longValue();
         admin.setId(id);
+
 
         return admin;
     }
@@ -57,9 +62,9 @@ public class AdminDao extends BaseDao<Admin> {
     @Override
     public Admin read(Long id) {
         try {
-            return (Admin) this.jdbcTemplate.queryForObject(sql("readAdmin"), new MapSqlParameterSource("id", id), rowMapper);
+            return this.jdbcTemplate.queryForObject(sql("readAdmin"), new MapSqlParameterSource("id", id), rowMapper);
         } catch (EmptyResultDataAccessException e) {
-            LOG.error("User dao: couldn't get a user with id: " + id);
+            LOG.error(String.format("User dao: couldn't get a user with id %d ", id));
         }
         return null;
     }
@@ -71,9 +76,9 @@ public class AdminDao extends BaseDao<Admin> {
      */
     public Admin readByEmail(String email) {
         try {
-            return (Admin) this.jdbcTemplate.queryForObject(sql("readAdminByEmail"), new MapSqlParameterSource("email", email), rowMapper);
+            return this.jdbcTemplate.queryForObject(sql("readAdminByEmail"), new MapSqlParameterSource("email", email), rowMapper);
         } catch (EmptyResultDataAccessException e) {
-            LOG.error("User dao couldn't get a user with email: " + email);
+            LOG.error(String.format("User dao couldn't get a user with email %s " , email));
         }
         return null;
     }
@@ -93,7 +98,7 @@ public class AdminDao extends BaseDao<Admin> {
         if (admin == null){
             throw new DaoException("Request to update a user received null");
         }
-        admin.setUpdated_date(LocalDateTime.now());
+        admin.setUpdatedDate(LocalDateTime.now());
         int result = this.jdbcTemplate.update(sql("updateAdmin"), new MapSqlParameterSource(rowMapper.mapObject(admin)));
         if (result != 1 ){
             throw new DaoException(String.format("UserDao: Failed attempt to update user %s", admin.toString()));
@@ -105,11 +110,11 @@ public class AdminDao extends BaseDao<Admin> {
     public void delete(long id) { // TODO
         Admin admin=this.read(id);
         admin.setStatus("Deleted");
-        admin.setUpdated_date(LocalDateTime.now());
-        admin.setUpdated_by(null); // this will change later.
+        admin.setUpdatedDate(LocalDateTime.now());
+        admin.setUpdatedBy(null); // this will change later.
         int result = this.jdbcTemplate.update(sql("deleteAdmin"),new MapSqlParameterSource("id", id));
         if(result != 1){
-            throw new DaoException(String.format("Admin Dao: Failed attempt to update user %s affected %s rows", id, result));
+            throw new DaoException(String.format("Admin Dao: Failed attempt to delete user %s affected %s rows", id, result));
         }
     }
 }

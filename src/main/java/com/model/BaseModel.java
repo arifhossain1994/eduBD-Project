@@ -9,10 +9,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BaseModel {
-    Long id, created_by, updated_by;
+    Long id;
+    Long createdBy;
+    Long updatedBy;
 
     @ApiModelProperty(hidden = true)
-    private LocalDateTime created_date;
+    private LocalDateTime createdDate;
     @ApiModelProperty(hidden = true)
-    private LocalDateTime updated_date;
+    private LocalDateTime updatedDate;
 }

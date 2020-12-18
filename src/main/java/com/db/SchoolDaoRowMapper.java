@@ -40,21 +40,21 @@ public class SchoolDaoRowMapper extends BaseRowMapper<School> {
     public Map<String, Object> mapObject(@NotNull School school) {
         Map <String,Object> map = new HashMap<>();
         map.put(ID.getColumnName(), school.getId());
-        map.put(SCHOOL_EMAIL.getColumnName(),school.getSchool_email());
-        map.put(SCHOOL_NAME.getColumnName(),school.getSchool_name());
-        map.put(SCHOOL_STREET.getColumnName(),school.getSchool_street());
-        map.put(SCHOOL_HOUSE.getColumnName(),school.getSchool_house());
-        map.put(SCHOOL_ZIP.getColumnName(),school.getSchool_zip());
-        map.put(SCHOOL_CITY.getColumnName(),school.getSchool_city());
-        map.put(SCHOOL_STATE.getColumnName(),school.getSchool_state());
-        map.put(SCHOOL_COUNTRY.getColumnName(),school.getSchool_country());
-        map.put(SCHOOL_PHONE.getColumnName(),school.getSchool_phone());
+        map.put(SCHOOL_EMAIL.getColumnName(),school.getSchoolEmail());
+        map.put(SCHOOL_NAME.getColumnName(),school.getSchoolName());
+        map.put(SCHOOL_STREET.getColumnName(),school.getSchoolStreet());
+        map.put(SCHOOL_HOUSE.getColumnName(),school.getSchoolHouse());
+        map.put(SCHOOL_ZIP.getColumnName(),school.getSchoolZip());
+        map.put(SCHOOL_CITY.getColumnName(),school.getSchoolCity());
+        map.put(SCHOOL_STATE.getColumnName(),school.getSchoolState());
+        map.put(SCHOOL_COUNTRY.getColumnName(),school.getSchoolCountry());
+        map.put(SCHOOL_PHONE.getColumnName(),school.getSchoolPhone());
         map.put(STATUS.getColumnName(),school.getStatus());
         map.put(IMAGE.getColumnName(),school.getImage());
-        map.put(CREATED_BY.getColumnName(), school.getCreated_by());
-        map.put(UPDATED_BY.getColumnName(), school.getUpdated_by());
-        map.put(CREATED_DATE.getColumnName(), javaTimeFromDate(school.getCreated_date()));
-        map.put(UPDATED_DATE.getColumnName(), javaTimeFromDate(school.getUpdated_date()));
+        map.put(CREATED_BY.getColumnName(), school.getCreatedBy());
+        map.put(UPDATED_BY.getColumnName(), school.getUpdatedBy());
+        map.put(CREATED_DATE.getColumnName(), javaTimeFromDate(school.getCreatedDate()));
+        map.put(UPDATED_DATE.getColumnName(), javaTimeFromDate(school.getUpdatedDate()));
         return map;
     }
 
@@ -63,21 +63,21 @@ public class SchoolDaoRowMapper extends BaseRowMapper<School> {
         School school = new School();
         
         school.setId(rs.getLong(ID.getColumnName()));
-        school.setSchool_name(rs.getString(SCHOOL_NAME.getColumnName()));
-        school.setSchool_email(rs.getString(SCHOOL_EMAIL.getColumnName()));
-        school.setSchool_street(rs.getString(SCHOOL_STREET.getColumnName()));
-        school.setSchool_house(rs.getString(SCHOOL_HOUSE.getColumnName()));
-        school.setSchool_zip(rs.getLong(SCHOOL_ZIP.getColumnName()));
-        school.setSchool_city(rs.getString(SCHOOL_CITY.getColumnName()));
-        school.setSchool_state(rs.getString(SCHOOL_STATE.getColumnName()));
-        school.setSchool_country(rs.getString(SCHOOL_COUNTRY.getColumnName()));
-        school.setSchool_phone(rs.getLong(SCHOOL_PHONE.getColumnName()));
+        school.setSchoolName(rs.getString(SCHOOL_NAME.getColumnName()));
+        school.setSchoolEmail(rs.getString(SCHOOL_EMAIL.getColumnName()));
+        school.setSchoolStreet(rs.getString(SCHOOL_STREET.getColumnName()));
+        school.setSchoolHouse(rs.getString(SCHOOL_HOUSE.getColumnName()));
+        school.setSchoolZip(rs.getLong(SCHOOL_ZIP.getColumnName()));
+        school.setSchoolCity(rs.getString(SCHOOL_CITY.getColumnName()));
+        school.setSchoolState(rs.getString(SCHOOL_STATE.getColumnName()));
+        school.setSchoolCountry(rs.getString(SCHOOL_COUNTRY.getColumnName()));
+        school.setSchoolPhone(rs.getLong(SCHOOL_PHONE.getColumnName()));
         school.setStatus(rs.getString(STATUS.getColumnName()));
         school.setImage(rs.getString(IMAGE.getColumnName()));
-        school.setCreated_by(rs.getLong(CREATED_BY.getColumnName()));
-        school.setUpdated_by(rs.getLong(UPDATED_BY.getColumnName()));
-        school.setCreated_date(dateFromJavaTime(rs.getObject(CREATED_DATE.getColumnName())));
-        school.setUpdated_date(dateFromJavaTime(rs.getObject(UPDATED_DATE.getColumnName())));
+        school.setCreatedBy(rs.getLong(CREATED_BY.getColumnName()));
+        school.setUpdatedBy(rs.getLong(UPDATED_BY.getColumnName()));
+        school.setCreatedDate(dateFromJavaTime(rs.getObject(CREATED_DATE.getColumnName())));
+        school.setUpdatedDate(dateFromJavaTime(rs.getObject(UPDATED_DATE.getColumnName())));
         return school;
     }
 }

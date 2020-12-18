@@ -1,7 +1,6 @@
 package com;
 
 import com.db.*;
-import com.sql.dao.BaseRowMapper;
 import com.sql.statement.ISqlStatementsFileLoader;
 import com.sql.statement.SqlStatementsFileLoader;
 
@@ -123,6 +122,19 @@ public class ApplicationConfig {
 
     @Bean
     public SchoolDaoRowMapper schoolDaoRowMapper() { return new SchoolDaoRowMapper(); }
+
+    @Bean
+    public TeacherDao teacherDao(){
+        TeacherDao teacherDao = new TeacherDao();
+        teacherDao.setDataSource(dataSource());
+        teacherDao.setSqlStatementsFileLoader(sqlStatementsFileLoader());
+        teacherDao.setRowMapper(teacherDaoRowMapper());
+        return teacherDao;
+    }
+
+    @Bean
+    public TeacherDaoRowMapper teacherDaoRowMapper() { return new TeacherDaoRowMapper(); }
+
 
 
 

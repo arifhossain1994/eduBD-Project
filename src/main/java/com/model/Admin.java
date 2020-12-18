@@ -9,10 +9,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Getter
 @Setter
 public class Admin extends BaseModel{
-    private Long school_id, admin_phone;
-    private String first_name, last_name;
-    private String email, password;
-    private String status, role, image;
+    private Long schoolId;
+    private Long adminPhone;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String status;
+    private String role;
+    private String image;
 
     @Override
     public boolean equals(Object object) {

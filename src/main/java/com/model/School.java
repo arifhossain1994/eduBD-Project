@@ -6,9 +6,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class School extends BaseModel{
-    private String school_name, school_email, school_street, school_house,
-             school_city, school_state, school_country;
-    Long school_phone,school_zip;
-
-    private String image, status;
+    private String schoolName;
+    private String schoolEmail;
+    private String schoolStreet;
+    private String schoolHouse;
+    private String schoolCity;
+    private String schoolState;
+    private String schoolCountry;
+    Long schoolPhone;
+    Long schoolZip;
+    private String image;
+    private String status;
 }

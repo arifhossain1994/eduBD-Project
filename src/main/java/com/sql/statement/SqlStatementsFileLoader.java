@@ -11,6 +11,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +73,7 @@ public class SqlStatementsFileLoader implements ISqlStatementsFileLoader, Applic
     private void readResource(Resource resource) {
         try {
             LOGGER.info("Loading sql statements from {}", resource.getFilename());
-            String fileContents = Resources.toString(resource.getURL(), Charsets.UTF_8);
+            String fileContents = Resources.toString(resource.getURL(), StandardCharsets.UTF_8);
             Map<String, String> sqlStatements = parser.parse(fileContents);
             if (LOGGER.isDebugEnabled()) {
                 for (Map.Entry<String, String> entry : sqlStatements.entrySet()) {

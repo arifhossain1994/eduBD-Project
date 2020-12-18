@@ -5,30 +5,30 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AdminUnitTest {
+class AdminUnitTest {
     Admin obj= new Admin();
 
     @Test
-    public void adminTest()
+    void adminTest()
     {
-        String firstName= obj.getFirst_name();
+        String firstName= obj.getFirstName();
         assertNull(firstName);
         assertNull(obj.getEmail());
         assertNull(obj.getPassword());
     }
 
     @Test
-    public void nameTest() {
-        obj.setFirst_name("Arif");
-        assertEquals("Arif", obj.getFirst_name());
-        obj.setLast_name("1234");
-        assertEquals("1234", obj.getLast_name());
-        assertNotEquals("5555", obj.getLast_name());
+    void nameTest() {
+        obj.setFirstName("Arif");
+        assertEquals("Arif", obj.getFirstName());
+        obj.setLastName("1234");
+        assertEquals("1234", obj.getLastName());
+        assertNotEquals("5555", obj.getLastName());
 
     }
 
     @Test
-    public void statusTest()
+    void statusTest()
     {
         obj.setStatus("suspended");
         assertEquals("suspended",obj.getStatus().toLowerCase());
