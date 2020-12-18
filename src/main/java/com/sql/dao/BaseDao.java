@@ -15,7 +15,7 @@ public abstract class BaseDao<T> {
     protected DataSource dataSource;
     protected NamedParameterJdbcTemplate jdbcTemplate;
     protected ISqlStatementsFileLoader sqlStatementsFileLoader;
-    protected BaseRowMapper rowMapper;
+    protected BaseRowMapper<T> rowMapper;
 
     public abstract T create(T object, Long creatorId);
 
@@ -40,7 +40,7 @@ public abstract class BaseDao<T> {
         return statement;
     }
 
-    public void setRowMapper(BaseRowMapper rowMapper) {
+    public void setRowMapper(BaseRowMapper <T> rowMapper) {
         this.rowMapper = rowMapper;
     }
 

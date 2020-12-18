@@ -41,19 +41,19 @@ public class AdminDaoRowMapper extends BaseRowMapper<Admin>{
     public Map<String, Object> mapObject(@NotNull Admin admin) {
         Map <String,Object> map = new HashMap<>();
         map.put(ID.getColumnName(), admin.getId());
-        map.put(SCHOOL_ID.getColumnName(),admin.getSchool_id());
-        map.put(FIRST_NAME.getColumnName(),admin.getFirst_name());
-        map.put(LAST_NAME.getColumnName(),admin.getLast_name());
+        map.put(SCHOOL_ID.getColumnName(),admin.getSchoolId());
+        map.put(FIRST_NAME.getColumnName(),admin.getFirstName());
+        map.put(LAST_NAME.getColumnName(),admin.getLastName());
         map.put(EMAIL.getColumnName(),admin.getEmail());
         map.put(PASSWORD.getColumnName(),admin.getPassword());
-        map.put(ADMIN_PHONE.getColumnName(),admin.getAdmin_phone());
+        map.put(ADMIN_PHONE.getColumnName(),admin.getAdminPhone());
         map.put(STATUS.getColumnName(),admin.getStatus());
         map.put(ROLE.getColumnName(),admin.getRole());
         map.put(IMAGE.getColumnName(),admin.getImage());
-        map.put(CREATED_BY.getColumnName(), admin.getCreated_by());
-        map.put(UPDATED_BY.getColumnName(), admin.getUpdated_by());
-        map.put(CREATED_DATE.getColumnName(), javaTimeFromDate(admin.getCreated_date()));
-        map.put(UPDATED_DATE.getColumnName(), javaTimeFromDate(admin.getUpdated_date()));
+        map.put(CREATED_BY.getColumnName(), admin.getCreatedBy());
+        map.put(UPDATED_BY.getColumnName(), admin.getUpdatedBy());
+        map.put(CREATED_DATE.getColumnName(), javaTimeFromDate(admin.getCreatedDate()));
+        map.put(UPDATED_DATE.getColumnName(), javaTimeFromDate(admin.getUpdatedDate()));
         return map;
     }
 
@@ -61,19 +61,19 @@ public class AdminDaoRowMapper extends BaseRowMapper<Admin>{
     public Admin mapRow(ResultSet rs, int rowNum) throws SQLException {
         Admin admin  = new Admin();
         admin.setId(rs.getLong(ID.getColumnName()));
-        admin.setSchool_id(rs.getLong(SCHOOL_ID.getColumnName()));
-        admin.setFirst_name(rs.getString(FIRST_NAME.getColumnName()));
-        admin.setLast_name(rs.getString(LAST_NAME.getColumnName()));
+        admin.setSchoolId(rs.getLong(SCHOOL_ID.getColumnName()));
+        admin.setFirstName(rs.getString(FIRST_NAME.getColumnName()));
+        admin.setLastName(rs.getString(LAST_NAME.getColumnName()));
         admin.setEmail(rs.getString(EMAIL.getColumnName()));
         admin.setPassword(rs.getString(PASSWORD.getColumnName()));
-        admin.setAdmin_phone(rs.getLong(ADMIN_PHONE.getColumnName()));
+        admin.setAdminPhone(rs.getLong(ADMIN_PHONE.getColumnName()));
         admin.setStatus(rs.getString(STATUS.getColumnName()));
         admin.setRole(rs.getString(ROLE.getColumnName()));
         admin.setImage(rs.getString(IMAGE.getColumnName()));
-        admin.setCreated_by(rs.getLong(CREATED_BY.getColumnName()));
-        admin.setUpdated_by(rs.getLong(UPDATED_BY.getColumnName()));
-        admin.setCreated_date(dateFromJavaTime(rs.getObject(CREATED_DATE.getColumnName())));
-        admin.setUpdated_date(dateFromJavaTime(rs.getObject(UPDATED_DATE.getColumnName())));
+        admin.setCreatedBy(rs.getLong(CREATED_BY.getColumnName()));
+        admin.setUpdatedBy(rs.getLong(UPDATED_BY.getColumnName()));
+        admin.setCreatedDate(dateFromJavaTime(rs.getObject(CREATED_DATE.getColumnName())));
+        admin.setUpdatedDate(dateFromJavaTime(rs.getObject(UPDATED_DATE.getColumnName())));
         return admin;
     }
 }

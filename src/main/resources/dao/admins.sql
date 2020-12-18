@@ -35,6 +35,9 @@ SELECT * FROM admins WHERE id = :id;
 --STATEMENT readAdminByEmail
 SELECT * FROM admins WHERE email = :email;
 
+--STATEMENT readAdminBySchoolId
+SELECT * FROM admins WHERE school_id= :school_id;
+
 --STATEMENT deleteAdmin
 UPDATE admins SET
                   status = :status,

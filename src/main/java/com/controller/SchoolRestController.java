@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -15,8 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@RestController
+@Controller
 public class SchoolRestController {
+
+    @GetMapping("/ManageSchool")
+    public String homePage(Model model) {
+        return "manageSchool";
+    }
 
 
     public static final String BASE_SCHOOL_PATH = "/school/";
@@ -36,8 +43,8 @@ public class SchoolRestController {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
-            Assert.notNull(school.getSchool_email(),"School email cannot be null.");
-            Assert.isNull(schoolDao.readByEmail(school.getSchool_email()),"School already exists in the system.");
+            Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
+            Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
             return schoolDao.create(school, null);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
