@@ -43,3 +43,10 @@ native
 #local H2 files
 /db/*.db
 
+m2.cong
+mvn
+mvn.cmd
+mvnDebug
+mvnDebug.cmd
+mvnyjp
+
