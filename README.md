@@ -58,3 +58,6 @@ mvn spring-boot:run -D spring.profiles.active=localmysql
 
 Once the application is running locally Swagger based REST documentation and testing will be available at:
 - [http://localhost:8333/eduBD-Project/swaggerui](http://localhost:8333/eduBD-Project/swaggerui)
+
+To run the project for HTML:
+- [http://localhost:8333/eduBD-Project](http://localhost:8333/eduBD-Project)
