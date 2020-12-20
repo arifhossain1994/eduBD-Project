@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class SchoolRestController {
 
-    public static final String BASE_SCHOOL_PATH = "/school";
+    public static final String BASE_SCHOOL_PATH = "/School";
     public static final String GET_EMAIL_PATH = BASE_SCHOOL_PATH + "/email";
     public static final String DELETE_USER_PATH = BASE_SCHOOL_PATH + "/delete";
 
@@ -32,15 +32,33 @@ public class SchoolRestController {
     @Autowired
     public SchoolRestController(SchoolDao schoolDao){this.schoolDao = schoolDao;}
 
+    //Manage School Page
+    @GetMapping ("/ManageSchool")
+    public String manageSchoolPage(Model model){
+        return "manageSchool";
+    }
+
+    // Create school page
+    @GetMapping("/ManageSchool/School")
+    public String createSchoolForm(Model model){
+        return "createSchoolForm";
+    }
+
+    @GetMapping(BASE_SCHOOL_PATH+"/Create")
+    public String show(){
+        return "createSchoolForm";
+    }
+
     @ApiOperation(value = "Create School")
-    @PostMapping(value = BASE_SCHOOL_PATH)
+    @PostMapping(value = BASE_SCHOOL_PATH+"/Create")
     public String create (Model model, @NonNull @RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
             Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
             Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
-            model.addAttribute("school",schoolDao.create(school, null));
+            School s=schoolDao.create(school, null);
+            model.addAttribute("school",s);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
@@ -50,8 +68,7 @@ public class SchoolRestController {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             return null;
         }
-
-        return "school";
+        return "createSchoolForm";
     }
 
     @ApiOperation(value = "Read School by ID")

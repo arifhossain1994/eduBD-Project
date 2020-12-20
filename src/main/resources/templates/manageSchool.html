@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Manage School || EDUBD</title></head>
+    <title>Manage School || EDUBD</title>
     <meta charset="utf-8">
+</head>
 <body>
-<h1>EDUBD - Manage School Portal</h1>
+    <h1>EDUBD - Manage School Portal</h1>
 
-<div align="center">
-    <a th:href="@{School}">Create New School</a>
+    <div>
+        <a th:href="@{ManageSchool/School}">Create New School</a>
 
-
-
-</div>
-
-<br>
-<button type="submit" th:action="@{/school/all}" th:object="${allSchool}" formmethod="get">Show All Schools</button>
+    </div>
 
 </body>
 </html>
