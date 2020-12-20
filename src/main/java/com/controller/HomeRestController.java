@@ -14,4 +14,14 @@ public class HomeRestController {
     public String homePage(Model model) {
         return "home";
     }
+
+    @GetMapping ("/ManageSchool")
+    public String manageSchoolPage(Model model){
+        return "manageSchool";
+    }
+
+    @GetMapping("/school")
+    public String createSchoolForm(Model model){
+        return "createSchoolForm";
+    }
 }

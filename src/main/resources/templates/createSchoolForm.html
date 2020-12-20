@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create School || EDUBD</title></head>
+    <meta charset="utf-8">
+<body>
+<h1>EDUBD - Manage School Portal</h1>
+
+<h3>Create New School</h3><br>
+<form action="#" th:action="@{/school}" th:object="${school}" method="post">
+    <label>School Name:</label><br>
+    <input type="text" th:field="*{firstName}"/><br>
+    <label>School Email:</label><br>
+    <input type="text" th:field="*{schoolEmail}" /><br>
+    <label>Phone Number: </label><br>
+    <input type="tel" th:field="*{schoolPhone}"><br>
+    <input type="submit" value="Submit"> <input type="reset" value="Reset"/>
+</form>
+
+<br>
+<button type="submit" th:action="@{/school/all}" th:object="${allSchool}" formmethod="get">Show All Schools</button>
+
+</body>
+</html>

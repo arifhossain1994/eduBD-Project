@@ -6,20 +6,15 @@
 <body>
 <h1>EDUBD - Manage School Portal</h1>
 
+<div align="center">
+    <a th:href="@{School}">Create New School</a>
 
-<h3>Create New School</h3><br>
-<form>
-    <label for="sfname">School Name:</label><br>
-    <input type="text" id="sfname" name="sfname"><br>
-    <label for="semail">School Email:</label><br>
-    <input type="text" id="semail" name="semail"><br>
-    <label for="sPhone">Phone Number: </label><br>
-    <input type="number" id="sPhone" name="sPhone"><br>
-    <input type="submit" value="Submit">
-</form>
+
+
+</div>
 
 <br>
-<button type="submit" name="showAllSchools">Show All Schools</button>
+<button type="submit" th:action="@{/school/all}" th:object="${allSchool}" formmethod="get">Show All Schools</button>
 
 </body>
 </html>
