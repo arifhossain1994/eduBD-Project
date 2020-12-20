@@ -46,8 +46,8 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "Create School")
-    @PostMapping(value = BASE_SCHOOL_PATH+"/Create")
-    public String create (School school, @ApiIgnore HttpServletResponse response) throws IOException {
+    @PostMapping(BASE_SCHOOL_PATH+"/Create")
+    public String create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
@@ -91,8 +91,9 @@ public class SchoolRestController {
     @ApiOperation(value = "Get All Schools")
     @GetMapping(value = BASE_SCHOOL_PATH+ "/all")
     public String readAll(Model model) {
-        model.addAttribute("allSchool",schoolDao.readAll());
-        return "allSchool";
+        List<School> schools=schoolDao.readAll();
+        model.addAttribute("schools",schools);
+        return "createSchoolForm";
     }
 
     @ApiOperation(value = "De-activate School")

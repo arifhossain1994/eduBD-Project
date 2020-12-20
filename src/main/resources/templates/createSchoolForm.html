@@ -51,6 +51,7 @@
             schools.push(school);
             document.forms[0].reset(); // clear the form.
 
+            JSON.stringify(schools);
             //display only
             console.warn('added',{schools});
 
@@ -64,7 +65,7 @@
     </script>
 
     <br>
-    <button type="submit" th:action="@{/school/all}" th:object="${allSchool}" formmethod="get">Show All Schools</button>
+    <button type="submit" th:action="@{/school/all}"  th:each="school : ${schools}" method="GET">Show All Schools</button>
 
 </body>
 </html>
