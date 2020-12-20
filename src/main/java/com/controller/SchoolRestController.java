@@ -39,26 +39,21 @@ public class SchoolRestController {
     }
 
     // Create school page
-    @GetMapping("/ManageSchool/School")
-    public String createSchoolForm(Model model){
-        return "createSchoolForm";
-    }
-
     @GetMapping(BASE_SCHOOL_PATH+"/Create")
-    public String show(){
+    public String createSchoolForm(Model model){
+        model.addAttribute("school",new School());
         return "createSchoolForm";
     }
 
     @ApiOperation(value = "Create School")
     @PostMapping(value = BASE_SCHOOL_PATH+"/Create")
-    public String create (Model model, @NonNull @RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
+    public String create (School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
             Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
             Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
-            School s=schoolDao.create(school, null);
-            model.addAttribute("school",s);
+            schoolDao.create(school, null);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());

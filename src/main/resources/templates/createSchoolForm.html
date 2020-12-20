@@ -9,18 +9,59 @@
 
     <h3>Create New School</h3> <br>
 
-    <form th:action="@{/School/Create}" th:object="${school}" th:method="POST">
+    <form action="#" th:action="@{/School/Create}" th:object="${school}" th:method="POST">
         <label>School Name:<br>
-        <input type="text" th:field="*{schoolName}">
+        <input type="text" th:field="*{schoolName}" id="schoolName" required>
         </label> <br>
         <label>School Email:<br>
-        <input type="text" th:field="*{schoolEmail}">
+        <input type="text" th:field="*{schoolEmail}" id="schoolEmail" required>
         </label> <br>
         <label>Phone Number: <br>
-        <input type="tel" th:field="*{schoolPhone}">
+        <input type="tel" th:field="*{schoolPhone}" id="schoolPhone" required>
         </label> <br>
-        <input type="submit" value="Submit"> <input type="reset" value="Reset"/>
+        <input id='btn' type="submit" value="Submit" > <input type="reset" value="Reset"/>
     </form>
+
+    <div id="msg">
+        <pre></pre>
+    </div>
+
+    <script>
+        let schools=[];
+        const addSchool = (ev) =>{ //ev=event
+            ev.preventDefault();
+            let school={ //create a json object
+                schoolName: document.getElementById('schoolName').value,
+                schoolEmail: document.getElementById('schoolEmail').value,
+                schoolPhone: document.getElementById('schoolPhone').value,
+                status: null,
+                schoolStreet:null,
+                SchoolHouse:null,
+                schoolZip:null,
+                schoolCity:null,
+                schoolState:null,
+                schoolCountry:null,
+                image:null,
+                createBy:null,
+                updatedBy:null,
+                createdDate:null,
+                updatedDate:null,
+                id:null
+            }
+            schools.push(school);
+            document.forms[0].reset(); // clear the form.
+
+            //display only
+            console.warn('added',{schools});
+
+            let pre=document.querySelector('#msg pre');
+            pre.textContent= '\n'+ JSON.stringify(schools,'\t',2);
+        }
+
+        document.addEventListener('DOMContentLoaded',() =>{
+            document.getElementById('btn').addEventListener('click',addSchool);
+        })
+    </script>
 
     <br>
     <button type="submit" th:action="@{/school/all}" th:object="${allSchool}" formmethod="get">Show All Schools</button>
