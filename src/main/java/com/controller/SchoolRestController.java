@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -45,14 +46,17 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "Create School")
-    @PostMapping(BASE_SCHOOL_PATH+"/Create")
-    public @ResponseBody School create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
+    //@PostMapping(BASE_SCHOOL_PATH+"/Create")
+    @PostMapping(value = BASE_SCHOOL_PATH+"/Create", produces = {"application/json"},
+            consumes = {"application/x-www-form-urlencoded"})
+    public  String create (School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
             Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
             Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
-            return schoolDao.create(school, null);
+            schoolDao.create(school, null);
+            return "createSchoolForm";
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
