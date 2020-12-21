@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
@@ -47,13 +46,13 @@ public class SchoolRestController {
 
     @ApiOperation(value = "Create School")
     @PostMapping(BASE_SCHOOL_PATH+"/Create")
-    public String create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
+    public @ResponseBody School create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
             Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
             Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
-            schoolDao.create(school, null);
+            return schoolDao.create(school, null);
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
@@ -63,11 +62,10 @@ public class SchoolRestController {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             return null;
         }
-        return "createSchoolForm";
     }
 
     @ApiOperation(value = "Read School by ID")
-    @GetMapping(value = BASE_SCHOOL_PATH + "/{id}")
+    @GetMapping(value = BASE_SCHOOL_PATH + "{id}")
     public School read(@NonNull @PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
         School school = schoolDao.read(id);
         if (school == null) {
@@ -78,7 +76,7 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "Get school by email")
-    @GetMapping(value = GET_EMAIL_PATH + "/{email}")
+    @GetMapping(value = GET_EMAIL_PATH + "{email}")
     public School readUserByEmail(@NonNull @PathVariable String email,  @ApiIgnore HttpServletResponse response) throws IOException {
         School school = schoolDao.readByEmail(email);
         if (school == null) {
@@ -97,7 +95,7 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "De-activate School")
-    @DeleteMapping(DELETE_USER_PATH + "/{id}")
+    @DeleteMapping(DELETE_USER_PATH + "{id}")
     public @ResponseBody void delete  (@PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
         try {
             Assert.notNull(id,"School ID cannot be null");

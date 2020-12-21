@@ -26,6 +26,9 @@
         <pre></pre>
     </div>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
     <script>
         let schools=[];
         const addSchool = (ev) =>{ //ev=event
@@ -51,9 +54,21 @@
             schools.push(school);
             document.forms[0].reset(); // clear the form.
 
-            JSON.stringify(schools);
+            $.ajax({
+                url:'/School/Create',
+                data: JSON.stringify(school),
+                type: "POST",
+                contentType:"application/json; charset=utf-8",
+                async:false,
+                cache:false,
+                processData:false,
+                success:function(){
+                    alert("Success");
+                }
+            });
+           // JSON.stringify(schools);
             //display only
-            console.warn('added',{schools});
+           // console.warn('added',{schools});
 
             let pre=document.querySelector('#msg pre');
             pre.textContent= '\n'+ JSON.stringify(schools,'\t',2);
@@ -63,9 +78,6 @@
             document.getElementById('btn').addEventListener('click',addSchool);
         })
     </script>
-
-    <br>
-    <button type="submit" th:action="@{/school/all}"  th:each="school : ${schools}" method="GET">Show All Schools</button>
 
 </body>
 </html>
