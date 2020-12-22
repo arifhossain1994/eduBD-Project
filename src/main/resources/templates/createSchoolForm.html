@@ -8,29 +8,14 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="../static/css/newSchoolAdd.css" type="text/css" rel="stylesheet"  />
+    <link th:href="@{/css/newSchoolAdd.css}" type="text/css" rel="stylesheet"  />
+    <style>
+
+    </style>
 
 </head>
 <body>
     <h1>EDUBD - Manage School Portal</h1>
-
-    <!--<h3>Create New School</h3> <br>
-    <form id="createSchool" method="post" name="newSchoolForm" >
-        <br>
-        <label>School Name:
-        <input type="text" id="schoolName" name="schoolName" value="" autocomplete="off" required/>
-        </label>
-        <br>
-        <label>School Email:
-        <input type="email" id="schoolEmail" name="schoolEmail" value="" autocomplete="off" required/>
-        </label>
-        <br>
-        <label>School Phone Number:
-        <input type="tel" id="schoolPhone" name="schoolEmail" value="" autocomplete="off" required/>
-        </label>
-        <br>
-        <button type="button" id="submit">Submit Form</button>
-    </form> -->
 
     <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New School</button>
 
