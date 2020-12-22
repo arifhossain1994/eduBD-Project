@@ -47,8 +47,8 @@ public class SchoolRestController {
 
     @ApiOperation(value = "Create School")
     @PostMapping(value = "/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate", produces = {"application/json"},
-            consumes = {"application/x-www-form-urlencoded"})
-    public String create (School school, @ApiIgnore HttpServletResponse response) throws IOException {
+            consumes = {"application/json"})
+    public String create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
