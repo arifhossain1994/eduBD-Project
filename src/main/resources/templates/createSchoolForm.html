@@ -13,7 +13,7 @@
     <h1>EDUBD - Manage School Portal</h1>
 
     <h3>Create New School</h3> <br>
-    <form id="createSchool">
+    <form id="createSchool" method="post">
         <br>
         <label>School Name:
         <input type="text" id="schoolName"  value="" required/>
@@ -34,7 +34,7 @@
 
     <script>
         $(document).ready( function() {
-            $("#createSchool").submit(function(e){
+            $("#createSchool").submit(function(e) {
                 e.preventDefault();
                 var school = {
                     schoolName: $("#schoolName").val(),
@@ -54,17 +54,34 @@
                     updatedDate: null,
                     id: null
                 };
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'SchoolCreate',true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                xhr.onreadystatechange = function() { // Call a function when the state changes.
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        // Request finished. Do processing here.
+                        console.log("success");
+                        $('#feedback').html("Success");
+                    }
+                    else {
+                        console.log(xhr.responseText);
+                        $('#feedback').html(xhr.responseText);
+                    }
+                }
+                xhr.send(JSON.stringify(school));
+            });
+        });
 
-                console.log(JSON.stringify(school));
-
-                let createSchoolForm = document.getElementById('createSchool');
-                let formData = new FormData(createSchoolForm );
+                /*console.log(JSON.stringify(school));
+                var school=JSON.stringify(school);
 
                 $.ajax({
+                    accept: "application/json",
                     type : "POST",
                     url : "SchoolCreate",
-                    data : {school:formData},
+                    data : school,
                     processData: false,
+                    cookie:false,
                     contentType:"application/x-www-form-urlencoded; charset=UTF-8",
                     success: function (data) {
                         var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
@@ -81,6 +98,8 @@
                 });
             });
         });
+        */
+
 
 
     </script>
