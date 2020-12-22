@@ -5,24 +5,26 @@
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <h1>EDUBD - Manage School Portal</h1>
 
     <h3>Create New School</h3> <br>
-
-    <form id="createSchool" >
+    <form id="createSchool">
         <br>
         <label>School Name:
-        <input type="text" id="schoolName"  value="" />
+        <input type="text" id="schoolName"  value="" required/>
         </label>
         <br>
         <label>School Email:
-        <input type="text" id="schoolEmail" value="" />
+        <input type="email" id="schoolEmail" value="" required/>
         </label>
         <br>
         <label>School Phone Number:
-        <input type="tel" id="schoolPhone" value="" />
+        <input type="tel" id="schoolPhone" value="" required/>
         </label>
         <br>
         <input id="btn" type="submit" value="Submit" />
@@ -30,13 +32,11 @@
 
     <div id="feedback"></div>
 
-
-
     <script>
         $(document).ready( function() {
             $("#createSchool").submit(function(e){
                 e.preventDefault();
-                var schoolData = {
+                var school = {
                     schoolName: $("#schoolName").val(),
                     schoolEmail: $("#schoolEmail").val(),
                     schoolPhone: $("#schoolPhone").val(),
@@ -54,18 +54,18 @@
                     updatedDate: null,
                     id: null
                 };
-               // let j = JSON.stringify(schoolData);
-                console.log(schoolData);
+
+                console.log(JSON.stringify(school));
+
+                let createSchoolForm = document.getElementById('createSchool');
+                let formData = new FormData(createSchoolForm );
 
                 $.ajax({
-                    header:{
-                        contentType : "application/json",
-                        accept: "application/json"
-                    },
                     type : "POST",
-                    url : "Create",
-                    data : JSON.stringify(schoolData),
-                    dataType : "json",
+                    url : "SchoolCreate",
+                    data : {school:formData},
+                    processData: false,
+                    contentType:"application/x-www-form-urlencoded; charset=UTF-8",
                     success: function (data) {
                         var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
                             + JSON.stringify(data, null, 4) + "&lt;/pre&gt;";
@@ -81,6 +81,7 @@
                 });
             });
         });
+
 
     </script>
 

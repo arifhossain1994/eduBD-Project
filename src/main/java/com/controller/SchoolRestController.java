@@ -39,21 +39,21 @@ public class SchoolRestController {
     }
 
     // Create school page
-    @GetMapping(BASE_SCHOOL_PATH+"/Create")
+    @GetMapping("/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate")
     public String createSchoolForm(Model model){
         model.addAttribute("school",new School());
         return "createSchoolForm";
     }
 
     @ApiOperation(value = "Create School")
-    //@PostMapping(BASE_SCHOOL_PATH+"/Create")
-    @PostMapping(value = BASE_SCHOOL_PATH+"/Create", produces = {"application/json"},
+    @PostMapping(value = "/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate", produces = {"application/json"},
             consumes = {"application/x-www-form-urlencoded"})
     public  String create (School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
             Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
+            Assert.notNull(school.getSchoolPhone(),"School Phone number cannot be null. ");
             Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
             schoolDao.create(school, null);
             return "createSchoolForm";
