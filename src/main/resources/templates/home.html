@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>EDUBD</title></head>
+    <title>EDUBD</title>
     <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
 <body>
-<h1>Welcome to EDUBD Manage Portal</h1>
+    <h1>Welcome to EDUBD Manage Portal</h1>
 
-<div align="center">
-    <a th:href="@{ManageSchool}">Manage School</a>
-    <a th:href="@{ManageAdmin}">Manage Admin</a>
-    <a th:href="@{ManageTeacher}">Manage Teacher</a>
+    <div>
+        <a th:href="@{ManageSchool}">Manage School</a>
+        <a th:href="@{ManageAdmin}">Manage Admin</a>
+        <a th:href="@{ManageTeacher}">Manage Teacher</a>
 
-</div>
+    </div>
 </body>
 </html>

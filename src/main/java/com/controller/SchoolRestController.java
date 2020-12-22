@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -20,15 +21,9 @@ import java.util.List;
 @Controller
 public class SchoolRestController {
 
-    @GetMapping("/ManageSchool")
-    public String homePage(Model model) {
-        return "manageSchool";
-    }
-
-
-    public static final String BASE_SCHOOL_PATH = "/school/";
-    public static final String GET_EMAIL_PATH = BASE_SCHOOL_PATH + "email/";
-    public static final String DELETE_USER_PATH = BASE_SCHOOL_PATH + "delete/";
+    public static final String BASE_SCHOOL_PATH = "/School";
+    public static final String GET_EMAIL_PATH = BASE_SCHOOL_PATH + "/email";
+    public static final String DELETE_USER_PATH = BASE_SCHOOL_PATH + "/delete";
 
     private final SchoolDao schoolDao;
 
@@ -37,15 +32,31 @@ public class SchoolRestController {
     @Autowired
     public SchoolRestController(SchoolDao schoolDao){this.schoolDao = schoolDao;}
 
+    //Manage School Page
+    @GetMapping ("/ManageSchool")
+    public String manageSchoolPage(Model model){
+        return "manageSchool";
+    }
+
+    // Create school page
+    @GetMapping("/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate")
+    public String createSchoolForm(Model model){
+        model.addAttribute("school",new School());
+        return "createSchoolForm";
+    }
+
     @ApiOperation(value = "Create School")
-    @PostMapping(value = BASE_SCHOOL_PATH)
-    public School create (@NonNull @RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
+    @PostMapping(value = "/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate", produces = {"application/json"},
+            consumes = {"application/json"})
+    public String create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
         try {
             Assert.isNull(school.getId(), "School ID field must be null");
             Assert.notNull(school.getSchoolEmail(),"School email cannot be null.");
+            Assert.notNull(school.getSchoolPhone(),"School Phone number cannot be null. ");
             Assert.isNull(schoolDao.readByEmail(school.getSchoolEmail()),"School already exists in the system.");
-            return schoolDao.create(school, null);
+            schoolDao.create(school, null);
+            return "createSchoolForm";
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
@@ -55,7 +66,6 @@ public class SchoolRestController {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             return null;
         }
-
     }
 
     @ApiOperation(value = "Read School by ID")
@@ -81,9 +91,11 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "Get All Schools")
-    @GetMapping(value = BASE_SCHOOL_PATH+ "all/")
-    public List<School> readAll() {
-        return schoolDao.readAll();
+    @GetMapping(value = BASE_SCHOOL_PATH+ "/all")
+    public String readAll(Model model) {
+        List<School> schools=schoolDao.readAll();
+        model.addAttribute("schools",schools);
+        return "createSchoolForm";
     }
 
     @ApiOperation(value = "De-activate School")

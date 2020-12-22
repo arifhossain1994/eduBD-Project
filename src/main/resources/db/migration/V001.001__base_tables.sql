@@ -8,7 +8,7 @@ CREATE TABLE schools (
     school_city VARCHAR(255),
     school_state VARCHAR(255),
     school_country VARCHAR(255),
-    school_phone BIGINT(20),
+    school_phone BIGINT(20) NOT NULL ,
     status VARCHAR(255) NOT NULL,
     image VARCHAR(255),
     created_by BIGINT(20) NULL,

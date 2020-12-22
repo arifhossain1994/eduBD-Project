@@ -10,8 +10,15 @@ public class HomeRestController {
     @Value("${spring.application.name}")
     String appName;
 
-    @GetMapping("/")
+    @GetMapping("/")// show the home page
     public String homePage(Model model) {
-        return "home";
+        return "home"; // this is the page that is rendering home.html
     }
+
+
+
+
+
+
+
 }
