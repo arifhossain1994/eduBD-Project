@@ -152,7 +152,7 @@
 
                 <div class="clearfix">
                     <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button id="submit" type="button" class="signupbtn">Add New School</button>
+                    <button id="submit" type="button" class="signupbtn" onclick="window.location.reload();">Add New School</button>
                 </div>
                 <br>
                 <div id="feedback">
@@ -166,12 +166,11 @@
     <br>
     <br>
     <br>
-
     <div id="AllSchools" class="AllSchools">
         <h3>All Schools</h3>
         <div>
             <table id="allSchoolsTable" th:action="@{all}">
-                <thead>
+
                     <tr>
                         <th>ID</th>
                         <th>School Name</th>
@@ -181,27 +180,28 @@
                         <th>Status</th>
                         <th>Created</th>
                         <th>Updated</th>
+                        <th>Modify</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
+
+
             </table>
         </div>
     </div>
 
 
+             <table id="showData" onload=" loadAllSchools()"></table>
+
+
+
 
     <script type="text/javascript">
+
+
+
+
+
+
+
 
         const schoolTableBody = document.querySelector("#allSchoolsTable > tbody");
         function loadAllSchools(){
@@ -216,25 +216,123 @@
             request.onload=() =>{
                 try{
                     const json=JSON.parse(request.responseText);
+                    console.log(json);
+                    console.log(json.key);
                     populateAllSchool(json);
                 }catch (e){
                     console.log("Could not load school data. ")
                 }
             };
-
-
             request.send();
         }
+
         function populateAllSchool(json){
             console.log(json);
             //This is to clear existing data in the table.
             while(schoolTableBody.firstChild){
                 schoolTableBody.removeChild(schoolTableBody.firstChild);
             }
-            //populate table
 
-            console.log(json[0]);
+            $(document).ready(function () {
 
+                // FETCHING DATA FROM JSON FILE
+                $.getJSON(json,
+                    function (data) {
+                        var student = '';
+
+                        // ITERATING THROUGH OBJECTS
+                        $.each(data, function (key, value) {
+
+                            //CONSTRUCTION OF ROWS HAVING
+                            // DATA FROM JSON OBJECT
+                            student += '<tr>';
+                            student += '<td>' +
+                                value.id + '</td>';
+
+                            student += '<td>' +
+                                value.schoolName + '</td>';
+
+                            student += '<td>' +
+                                value.schoolEmail + '</td>';
+
+                            student += '<td>' +
+                                value.schoolStreet + '</td>';
+
+                            student += '<td>' +
+                                value.schoolPhone + '</td>';
+
+                            student += '<td>' +
+                                value.status + '</td>';
+
+                            student += '<td>' +
+                                value.createdDate + '</td>';
+
+                            student += '<td>' +
+                                value.updatedDate + '</td>';
+
+                            student += '<td>' + '</td>';
+
+                            student += '</tr>';
+                        });
+                        //INSERTING ROWS INTO TABLE
+                        $('#allSchoolsTable').append(student);
+                    });
+
+
+                        /*
+                        //populate table
+                        // EXTRACT VALUE FOR HTML HEADER.
+                        // ('Book ID', 'Book Name', 'Category' and 'Price')
+                        var col = [];
+                        for (var i = 0; i < json.length; i++) {
+                            for (var key in json[i]) {
+                                if (col.indexOf(key) === -1) {
+                                    col.push(key);
+                                }
+                            }
+                        }
+
+                        // CREATE DYNAMIC TABLE.
+                        var table = document.createElement("table");
+
+                        // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+                        var tr = table.insertRow(-1);                   // TABLE ROW.
+
+                        var thead=document.createElement("thead");
+                        for (var i = 0; i < col.length; i++) {
+                            var th = document.createElement("th");      // TABLE HEADER.
+
+                            switch(col[i].toString()){
+                                case "id": th.innerHTML="ID";break;
+                                case "schoolName":th.innerHTML="School Name";break;
+                                case "schoolEmail":th.innerHTML="School Email";break;
+                                case "schoolStreet":th.innerHTML="School Address";break;
+                                case "schoolPhone":th.innerHTML="School Phone";break;
+                                case "createdDate": th.innerHTML="Created Date"; break;
+                                case "updatedDate":th.innerHTML="Updated Date"; break;
+                                default: break;
+                            }
+                            tr.appendChild(th);
+                        }
+
+                        var tbody=document.createElement("tbody")
+                        // ADD JSON DATA TO THE TABLE AS ROWS.
+                        for (var i = 0; i < json.length; i++) {
+
+                            tr = table.insertRow(-1);
+
+                            for (var j = 0; j < col.length; j++) {
+                                var tabCell = tr.insertCell(-1);
+                                tabCell.innerHTML = json[i][col[j]];
+                            }
+                        }
+
+                        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                        var divContainer = document.getElementById("showData");
+                        divContainer.innerHTML = "";
+                        divContainer.appendChild(table);*/
+        });
 
         }
 
@@ -305,25 +403,6 @@
                 xhr.send(s2);
             });
         });
-
-
-       /* function validateForm() {
-            var x = document.forms["newSchoolForm"]["schoolName"].value;
-            var y = document.forms["newSchoolForm"]["schoolEmail"].value;
-            var z = document.forms["newSchoolForm"]["schoolPhone"].value;
-            if (x == "") {
-                alert("School Name must be filled out");
-                return false;
-            }
-            else if(y==""){
-                alert("School Email must be filled out. ");
-                return false;
-            }
-            else if(z==""){
-                alert("School Phone Number must be filed out. ");
-                return false;
-            }else return true;
-        }*/
     </script>
 
 </body>
