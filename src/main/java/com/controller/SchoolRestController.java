@@ -91,11 +91,12 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "Get All Schools")
-    @GetMapping(value = BASE_SCHOOL_PATH+ "/all")
-    public String readAll(Model model) {
+    @GetMapping(value ="/ManageSchool"+ BASE_SCHOOL_PATH+ "/allSchool", produces = {"application/json"},
+            consumes = {"application/json"})
+    public @ResponseBody List<School> readAll() {
         List<School> schools=schoolDao.readAll();
-        model.addAttribute("schools",schools);
-        return "createSchoolForm";
+        //model.addAttribute("schools",schools);
+        return schools;
     }
 
     @ApiOperation(value = "De-activate School")

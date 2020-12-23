@@ -1,5 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 * {box-sizing: border-box;}
 
@@ -108,4 +110,32 @@ hr {
     .cancelbtn, .signupbtn {
         width: 100%;
     }
+}
+
+
+
+
+
+/*Table CSS*/
+#allSchoolsTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#allSchoolsTable td, #allSchoolsTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#allSchoolsTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#allSchoolsTable tr:hover {background-color: #ddd;}
+
+#allSchoolsTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
