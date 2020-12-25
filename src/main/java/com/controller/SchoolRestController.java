@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -32,21 +31,16 @@ public class SchoolRestController {
     @Autowired
     public SchoolRestController(SchoolDao schoolDao){this.schoolDao = schoolDao;}
 
-    //Manage School Page
-    @GetMapping ("/ManageSchool")
-    public String manageSchoolPage(Model model){
-        return "manageSchool";
-    }
 
-    // Create school page
-    @GetMapping("/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate")
+    // Manage school Page
+    @GetMapping("/ManageSchool"+BASE_SCHOOL_PATH)
     public String createSchoolForm(Model model){
         model.addAttribute("school",new School());
         return "createSchoolForm";
     }
 
     @ApiOperation(value = "Create School")
-    @PostMapping(value = "/ManageSchool"+BASE_SCHOOL_PATH+"/SchoolCreate", produces = {"application/json"},
+    @PostMapping(value = "/ManageSchool"+BASE_SCHOOL_PATH, produces = {"application/json"},
             consumes = {"application/json"})
     public String create (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         // components tests are expecting this assertion and exception handling, and will fail if removed
@@ -95,7 +89,6 @@ public class SchoolRestController {
             consumes = {"application/json"})
     public @ResponseBody List<School> readAll() {
         List<School> schools=schoolDao.readAll();
-        //model.addAttribute("schools",schools);
         return schools;
     }
 

@@ -10,7 +10,6 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link th:href="@{/css/newSchoolAdd.css}" type="text/css" rel="stylesheet"  />
     <style>
-
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -123,6 +122,8 @@
                 width: 100%;
             }
         }
+
+
     </style>
 
 </head>
@@ -211,12 +212,12 @@
 
     <script type="text/javascript">
 
+
+        //This function inserts data from the database to a table dynamically.
         const schoolTableBody = document.querySelector("#allSchoolsTable > tbody");
-
-
         function loadAllSchools(){
             const request=new XMLHttpRequest();
-            request.open("GET", "allSchool");
+            request.open("GET", "School/allSchool");
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = function() {
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -226,7 +227,6 @@
             request.onload=() =>{
                 try{
                     const json=JSON.parse(request.responseText);
-                    console.log(json);
                     populateAllSchool(json);
                 }catch (e){
                     console.log("Could not load school data. \n");
@@ -236,54 +236,55 @@
         }
 
         function populateAllSchool(json){
-           // console.log(json);
             //This is to clear existing data in the table.
             while(schoolTableBody.firstChild){
                 schoolTableBody.removeChild(schoolTableBody.firstChild);
             }
-
+            // for each data create a <tr> and insert <td> for each item.
             json.forEach((row)=>{
-
                 const tr = document.createElement("tr");
 
-                console.log(row);
+                const tdID= document.createElement("td");
+                tdID.textContent = row.id;
+                tr.appendChild(tdID);
 
-                const td= document.createElement("td");
+                const tdSN= document.createElement("td");
+                tdSN.textContent=row.schoolName;
+                tr.appendChild(tdSN);
 
+                const tdSE=document.createElement("td");
+                tdSE.textContent=row.schoolEmail;
+                tr.appendChild(tdSE);
 
-                /*
+                const tdSA=document.createElement("td");
+                tdSA.textContent=row.schoolStreet;
+                tr.appendChild(tdSA);
 
-                td.textContent = row.id;
-                tr.appendChild(td);
+                const tdSP=document.createElement("td");
+                tdSP.textContent=row.schoolPhone;
+                tr.appendChild(tdSP);
 
-                td.textContent=row.schoolName;
-                tr.appendChild(td);
+                const tdStatus=document.createElement("td");
+                tdStatus.textContent=row.status;
+                tr.appendChild(tdStatus);
 
-                td.textContent=row.schoolEmail;
-                tr.appendChild(td);
+                const tdSC=document.createElement("td");
+                tdSC.textContent=row.createdDate;
+                tr.appendChild(tdSC);
 
-                td.textContent=row.schoolStreet;
-                tr.appendChild(td);
+                const tdSU=document.createElement("td");
+                tdSU.textContent=row.updatedDate;
+                tr.appendChild(tdSU);
 
-                td.textContent=row.schoolPhone;
-                tr.appendChild(td);
+                const tdModify=document.createElement("td");
+                tdModify.textContent="";
+                tr.appendChild(tdModify);
 
-                td.textContent=row.status;
-                tr.appendChild(td);
-
-                td.textContent=row.createdDate;
-                tr.appendChild(td);
-
-                td.textContent=row.updatedDate;
-                tr.appendChild(td);
-
-                td.textContent="";
-                tr.appendChild(td);*/
                 schoolTableBody.appendChild(tr);
             });
 
 
-        };
+        }
         document.addEventListener("DOMContentLoaded", () => {loadAllSchools();});
 
 
@@ -292,18 +293,17 @@
 
 
 
-        // Get the modal
+        // Get the modal. This is for the pop up add school form.
         var modal = document.getElementById('id01');
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            if (event.target == modal) {
+            if (event.target === modal) {
                 modal.style.display = "none";
             }
         }
 
 
         // This funtion helps to send data for the Add new school HTML form and adds it to the data base.
-
         $(document).ready( function() {
             $("#submit").click(function(e) {
                 e.preventDefault();
@@ -313,7 +313,6 @@
                     $('#feedback').html("Email doesn't match. Enter again.");
                     return false;
                 }
-
                 var school=new Object();
                 school.schoolName = $("#schoolName").val();
                 school.schoolEmail= $("#schoolEmail").val();
@@ -336,13 +335,15 @@
                 console.log(s2);
 
                 var xhr = new XMLHttpRequest(); // to send the data as JSON to the controller.
-                xhr.open("POST", "SchoolCreate",true);
+                xhr.open("POST", "School",true);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function() { // Call a function when the state changes.
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                         // Request finished. Do processing here.
-                        console.log("success");
                         $('#feedback').html("Success");
+                        alert("Record inserted successfully");
+                        document.getElementById('createSchool').reset();
+                        window.location.reload()
                     }
                     else {
                         console.log(xhr.responseText);
@@ -350,6 +351,7 @@
                     }
                 }
                 xhr.send(s2);
+
             });
         });
     </script>
