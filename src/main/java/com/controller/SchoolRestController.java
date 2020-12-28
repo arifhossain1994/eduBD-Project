@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.db.SchoolDao;
+import com.model.Admin;
 import com.model.School;
 import io.micrometer.core.lang.NonNull;
 import io.swagger.annotations.ApiOperation;
@@ -88,21 +89,41 @@ public class SchoolRestController {
     @GetMapping(value ="/ManageSchool"+ BASE_SCHOOL_PATH+ "/allSchool", produces = {"application/json"},
             consumes = {"application/json"})
     public @ResponseBody List<School> readAll() {
-        List<School> schools=schoolDao.readAll();
-        return schools;
+        return schoolDao.readAll();
     }
 
+    @ApiOperation(value = "Update user")
+    @PutMapping(value ="/ManageSchool"+ BASE_SCHOOL_PATH+"/updateSchool")
+    public void update (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
+        try{
+            Assert.notNull(school.getId(), "School Id must not be null");
+            Assert.notNull(schoolDao.read(school.getId()), "Could not find school: " + school.getId() + " record not found.");
+            schoolDao.update(school);
+        } catch (IllegalArgumentException e) {
+            logger.error(e.getMessage(), e);
+            response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
+    }
+
+
+
     @ApiOperation(value = "De-activate School")
-    @DeleteMapping(DELETE_USER_PATH + "{id}")
-    public @ResponseBody void delete  (@PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
+    @PutMapping("/ManageSchool"+ BASE_SCHOOL_PATH+"/disable_{email}")
+    public String delete (@PathVariable String email, @ApiIgnore HttpServletResponse response) throws IOException {
         try {
-            Assert.notNull(id,"School ID cannot be null");
-            Assert.notNull(schoolDao.read(id),"School does not exist in the system.");
-            schoolDao.delete(id);
+            Assert.notNull(email,"School ID cannot be null");
+            Assert.notNull(schoolDao.readByEmail(email),"School does not exist in the system.");
+            schoolDao.disableByEmail(email);
+            return "createSchoolForm";
         } catch (Exception e){
             logger.error(e.getMessage(), e);
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Could not delete School: " + id + " record not found.");
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Could not disable School: " + email + ", record not found.");
         }
+        return null;
     }
     
     

@@ -64,5 +64,5 @@ UPDATE schools SET
                    updated_by = :updated_by,
                    updated_date = :updated_date
 WHERE
-        id = :id;
+        school_email = :school_email;
 
