@@ -3,6 +3,10 @@
 <head>
     <title>Create School || EDUBD</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -21,7 +25,7 @@
 <body>
     <h1>EDUBD - Manage School Portal</h1>
 
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New School</button>
+    <button class="btn btn-success" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New School</button>
 
     <div id="id01" class="modal">
         <span onclick="document.getElementById('id01').style.display='none'" class="close"  title="Close Modal">&times;</span>
@@ -65,7 +69,7 @@
     <div id="AllSchools" class="AllSchools">
         <h3>All Schools</h3>
         <div>
-            <table id="allSchoolsTable" th:action="@{all}">
+            <table id="allSchoolsTable" class="table table-bordered" >
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -161,7 +165,7 @@
                 if(row.status==="DEACTIVE"){
                     let button2 = document.createElement("BUTTON");
                     button2.setAttribute("id", "allSchoolTableEnable");
-                    button2.setAttribute("class","allSchoolTableEnable");
+                    button2.setAttribute("class","btn btn-success");
                     button2.setAttribute("value", row.schoolEmail);
                     button2.textContent = "Enable";
                     tdModify.appendChild(button2);
@@ -171,7 +175,7 @@
                     let button = document.createElement("BUTTON");
                     button.setAttribute("id", "allSchoolTableDisable");
                     button.setAttribute("value", row.schoolEmail);
-                    button.setAttribute("class","allSchoolTableDisable");
+                    button.setAttribute("class","btn btn-danger");
                     button.textContent = "Disable";
                     tdModify.appendChild(button);
                     tr.appendChild(tdModify);
