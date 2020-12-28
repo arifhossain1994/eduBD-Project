@@ -9,125 +9,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link th:href="@{/css/newSchoolAdd.css}" type="text/css" rel="stylesheet"  />
+    <script th:src="@{/script/addNewSchoolAdminPage.js}"></script>
+    <script th:src="@{/script/disableSchoolStatusAdmin.js}"></script>
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        * {box-sizing: border-box;}
-
-        /* Full-width input fields */
-        input[type=text], input[type=email], input[type=tel] {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;
-        }
-
-        /* Add a background color when the inputs get focus */
-        input[type=text]:focus, input[type=email]:focus , input[type=tel]:focus {
-            background-color: #ddd;
-            outline: none;
-        }
-
-        /* Set a style for all buttons */
-        button {
-            background-color:#4CAF50 ;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            opacity: 0.9;
-            text-align: center;
-        }
-
-        button:hover {
-            opacity:1;
-        }
-
-        #allSchoolTableDisable {
+        .allSchoolTableDisable{
             background-color: #c64242;
         }
-
-        /* Extra styles for the cancel button */
-        .cancelbtn {
-            padding: 14px 20px;
-            background-color: #f44336;
-        }
-
-        /* Float cancel and signup buttons and add an equal width */
-        .cancelbtn, .signupbtn {
-            float: left;
-            width: 50%;
-        }
-
-        /* Add padding to container elements */
-        .container {
-            padding: 16px;
-        }
-
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: #474e5d;
-            padding-top: 50px;
-        }
-
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-        }
-
-        /* Style the horizontal ruler */
-        hr {
-            border: 1px solid #f1f1f1;
-            margin-bottom: 25px;
-        }
-
-        /* The Close Button (x) */
-        .close {
-            position: absolute;
-            right: 35px;
-            top: 15px;
-            font-size: 40px;
-            font-weight: bold;
-            color: #f1f1f1;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #f44336;
-            cursor: pointer;
-        }
-
-        /* Clear floats */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        /* Change styles for cancel button and signup button on extra small screens */
-        @media screen and (max-width: 300px) {
-            .cancelbtn, .signupbtn {
-                width: 100%;
-            }
-        }
-
-
     </style>
 
 </head>
@@ -212,13 +99,7 @@
         </div>
     </div>
 
-
-
-
     <p id="showData" onload=" loadAllSchools()">
-
-
-
 
     <script type="text/javascript">
 
@@ -292,6 +173,7 @@
                 if(row.status==="DEACTIVE"){
                     let button2 = document.createElement("BUTTON");
                     button2.setAttribute("id", "allSchoolTableEnable");
+                    button2.setAttribute("class","allSchoolTableEnable");
                     button2.setAttribute("value", row.schoolEmail);
                     button2.textContent = "Enable";
                     tdModify.appendChild(button2);
@@ -301,6 +183,7 @@
                     let button = document.createElement("BUTTON");
                     button.setAttribute("id", "allSchoolTableDisable");
                     button.setAttribute("value", row.schoolEmail);
+                    button.setAttribute("class","allSchoolTableDisable");
                     button.textContent = "Disable";
                     tdModify.appendChild(button);
                     tr.appendChild(tdModify);
@@ -308,107 +191,19 @@
 
                 schoolTableBody.appendChild(tr);
             });
-
-
         }
         document.addEventListener("DOMContentLoaded", () => {loadAllSchools();});
 
 
 
-
-
-
-
         // Get the modal. This is for the pop up add school form.
-        var modal = document.getElementById('id01');
+        let modal = document.getElementById('id01');
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target === modal) {
                 modal.style.display = "none";
             }
         }
-
-
-        //This function disables the status of a school.
-        $(document).ready( function(){
-           $("#allSchoolTableDisable").click(function(e){
-               e.preventDefault();
-               let readButton= document.getElementById("allSchoolTableDisable");
-               let buttonValue=readButton.getAttribute("value");
-               let stringValue=buttonValue.toString();
-               console.log(stringValue);
-
-               var xhr2 = new XMLHttpRequest(); // to send the data as JSON to the controller.
-               xhr2.open("PUT", "School/disable_"+buttonValue,true);
-               xhr2.setRequestHeader("Content-Type", "application/json");
-               xhr2.onreadystatechange = function() { // Call a function when the state changes.
-                   if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                       // Request finished. Do processing here.
-                       console.log("SUCCESS DISABLE");
-                       window.location.reload();
-                   }
-                   else {
-                       console.log(xhr2.responseText);
-                       $('#disableButtonAction').html(xhr2.responseText);
-                   }
-               }
-               xhr2.send(buttonValue);
-           });
-        });
-
-
-
-        // This funtion helps to send data for the Add new school HTML form and adds it to the data base.
-        $(document).ready( function() {
-            $("#submit").click(function(e) {
-                e.preventDefault();
-                var x=$("#schoolEmail").val();
-                var y=$("#schoolEmail-repeat").val();
-                if(x!==y) { //if the user types in different emails in the boxes.
-                    $('#feedback').html("Email doesn't match. Enter again.");
-                    return false;
-                }
-                var school=new Object();
-                school.schoolName = $("#schoolName").val();
-                school.schoolEmail= $("#schoolEmail").val();
-                school.schoolPhone = $("#schoolPhone").val();
-                school.status= null;
-                school.schoolStreet= null;
-                school.schoolHouse= null;
-                school.schoolZip= null;
-                school.schoolCity= null;
-                school.schoolState= null;
-                school.schoolCountry= null;
-                school.image= null;
-                school.createBy= null;
-                school.updatedBy= null;
-                school.createdDate= null;
-                school.updatedDate= null;
-                school.id= null;
-
-                var s2=JSON.stringify(school);
-                console.log(s2);
-
-                var xhr = new XMLHttpRequest(); // to send the data as JSON to the controller.
-                xhr.open("POST", "School",true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.onreadystatechange = function() { // Call a function when the state changes.
-                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                        // Request finished. Do processing here.
-                        $('#feedback').html("Success");
-                        alert("Record inserted successfully");
-                        document.getElementById('createSchool').reset();
-                        window.location.reload();
-                    }
-                    else {
-                        console.log(xhr.responseText);
-                        $('#feedback').html(xhr.responseText);
-                    }
-                }
-                xhr.send(s2);
-
-            });
-        });
     </script>
 
 </body>
