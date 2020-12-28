@@ -88,22 +88,18 @@ public class SchoolDao extends BaseDao<School> {
 
     @Override
     public void delete(long id) {
-       /* School school=read(id);
-        school.setStatus("DEACTIVE");
-        school.setUpdatedBy(null);
-        school.setUpdatedDate(LocalDateTime.now());
-        int result = this.jdbcTemplate.update(sql("deleteSchool"),new MapSqlParameterSource("id", id));
-        if(result != 1){
-            throw new D
-            DaoException(String.format("School Dao: Failed attempt to update user %s affected %s rows", id, result));
-        }*/
-
     }
 
-    public void disableByEmail(String email) {
+    public void changeStatusByEmail(String email) {
         School school=readByEmail(email);
-        school.setStatus("DEACTIVE");
-        school.setUpdatedBy(null);// TOD
+
+        if(school.getStatus().equals("DEACTIVE")){
+            school.setStatus("ACTIVE");
+        }
+        else{
+            school.setStatus("DEACTIVE");
+        }
+        school.setUpdatedBy(null);// TODO
         school.setUpdatedDate(LocalDateTime.now());
         int result = this.jdbcTemplate.update(sql("deleteSchool"),new MapSqlParameterSource(rowMapper.mapObject(school)));//"school_email", email));
         if(result != 1){

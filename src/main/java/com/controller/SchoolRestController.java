@@ -94,11 +94,12 @@ public class SchoolRestController {
 
     @ApiOperation(value = "Update user")
     @PutMapping(value ="/ManageSchool"+ BASE_SCHOOL_PATH+"/updateSchool")
-    public void update (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
+    public String update (@RequestBody School school, @ApiIgnore HttpServletResponse response) throws IOException {
         try{
             Assert.notNull(school.getId(), "School Id must not be null");
             Assert.notNull(schoolDao.read(school.getId()), "Could not find school: " + school.getId() + " record not found.");
             schoolDao.update(school);
+            return "createSchoolForm";
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, e.getMessage());
@@ -106,6 +107,7 @@ public class SchoolRestController {
             logger.error(e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
+        return null;
 
     }
 
@@ -117,7 +119,7 @@ public class SchoolRestController {
         try {
             Assert.notNull(email,"School ID cannot be null");
             Assert.notNull(schoolDao.readByEmail(email),"School does not exist in the system.");
-            schoolDao.disableByEmail(email);
+            schoolDao.changeStatusByEmail(email);
             return "createSchoolForm";
         } catch (Exception e){
             logger.error(e.getMessage(), e);
