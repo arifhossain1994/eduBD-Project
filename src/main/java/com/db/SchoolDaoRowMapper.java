@@ -13,8 +13,9 @@ import java.util.Map;
 import static com.sql.dao.BaseRowMapper.BaseColumnType.*;
 import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_NAME;
 import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_EMAIL;
-import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_STREET;
-import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_HOUSE;
+import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_WEBSITE;
+import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_ADDRESS1;
+import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_ADDRESS2;
 import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_ZIP;
 import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_CITY;
 import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_STATE;
@@ -26,7 +27,7 @@ import static com.db.SchoolDaoRowMapper.SchoolColumnType.SCHOOL_PHONE;
 public class SchoolDaoRowMapper extends BaseRowMapper<School> {
 
     public enum SchoolColumnType {
-        SCHOOL_NAME, SCHOOL_EMAIL, SCHOOL_STREET, SCHOOL_HOUSE,
+        SCHOOL_NAME, SCHOOL_EMAIL, SCHOOL_WEBSITE, SCHOOL_ADDRESS1, SCHOOL_ADDRESS2,
         SCHOOL_ZIP, SCHOOL_CITY, SCHOOL_STATE, SCHOOL_COUNTRY, SCHOOL_PHONE,
         STATUS, IMAGE;
         private String columnName;
@@ -41,9 +42,10 @@ public class SchoolDaoRowMapper extends BaseRowMapper<School> {
         Map <String,Object> map = new HashMap<>();
         map.put(ID.getColumnName(), school.getId());
         map.put(SCHOOL_EMAIL.getColumnName(),school.getSchoolEmail());
+        map.put(SCHOOL_WEBSITE.getColumnName(),school.getSchoolWebsite());
         map.put(SCHOOL_NAME.getColumnName(),school.getSchoolName());
-        map.put(SCHOOL_STREET.getColumnName(),school.getSchoolStreet());
-        map.put(SCHOOL_HOUSE.getColumnName(),school.getSchoolHouse());
+        map.put(SCHOOL_ADDRESS1.getColumnName(),school.getSchoolAddress1());
+        map.put(SCHOOL_ADDRESS2.getColumnName(),school.getSchoolAddress2());
         map.put(SCHOOL_ZIP.getColumnName(),school.getSchoolZip());
         map.put(SCHOOL_CITY.getColumnName(),school.getSchoolCity());
         map.put(SCHOOL_STATE.getColumnName(),school.getSchoolState());
@@ -65,8 +67,9 @@ public class SchoolDaoRowMapper extends BaseRowMapper<School> {
         school.setId(rs.getLong(ID.getColumnName()));
         school.setSchoolName(rs.getString(SCHOOL_NAME.getColumnName()));
         school.setSchoolEmail(rs.getString(SCHOOL_EMAIL.getColumnName()));
-        school.setSchoolStreet(rs.getString(SCHOOL_STREET.getColumnName()));
-        school.setSchoolHouse(rs.getString(SCHOOL_HOUSE.getColumnName()));
+        school.setSchoolWebsite(rs.getString(SCHOOL_WEBSITE.getColumnName()));
+        school.setSchoolAddress1(rs.getString(SCHOOL_ADDRESS1.getColumnName()));
+        school.setSchoolAddress2(rs.getString(SCHOOL_ADDRESS2.getColumnName()));
         school.setSchoolZip(rs.getLong(SCHOOL_ZIP.getColumnName()));
         school.setSchoolCity(rs.getString(SCHOOL_CITY.getColumnName()));
         school.setSchoolState(rs.getString(SCHOOL_STATE.getColumnName()));

@@ -8,8 +8,9 @@ import lombok.Setter;
 public class School extends BaseModel{
     private String schoolName;
     private String schoolEmail;
-    private String schoolStreet;
-    private String schoolHouse;
+    private String schoolWebsite;
+    private String schoolAddress1;
+    private String schoolAddress2;
     private String schoolCity;
     private String schoolState;
     private String schoolCountry;
