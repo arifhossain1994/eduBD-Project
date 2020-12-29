@@ -64,18 +64,20 @@ public class SchoolRestController {
     }
 
     @ApiOperation(value = "Read School by ID")
-    @GetMapping(value = BASE_SCHOOL_PATH + "{id}")
+    @GetMapping(value ="/ManageSchool"+  BASE_SCHOOL_PATH + "id_{id}", produces = {"application/json"},
+            consumes = {"application/json"})
     public School read(@NonNull @PathVariable Long id, @ApiIgnore HttpServletResponse response) throws IOException {
         School school = schoolDao.read(id);
         if (school == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "School with ID: " + id + " not found.");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "School with ID: " + id + " not found.");
             return null;
         }
         return school;
     }
 
     @ApiOperation(value = "Get school by email")
-    @GetMapping(value = GET_EMAIL_PATH + "{email}")
+    @GetMapping(value ="/ManageSchool"+ BASE_SCHOOL_PATH + "/email_{email}", produces = {"application/json"},
+            consumes = {"application/json"})
     public School readUserByEmail(@NonNull @PathVariable String email,  @ApiIgnore HttpServletResponse response) throws IOException {
         School school = schoolDao.readByEmail(email);
         if (school == null) {

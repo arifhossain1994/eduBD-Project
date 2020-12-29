@@ -32,17 +32,18 @@ function populateAllSchool(json) {
         const tr = document.createElement("tr");
 
         const tdID = document.createElement("td");
-        tdID.textContent = row.id;
-        tr.appendChild(tdID);
-
-        const tdSN = document.createElement("td");
         let button3 = document.createElement("BUTTON");
         button3.setAttribute("id", "schoolNameEditable");
         button3.setAttribute("class", "btn btn-success");
         button3.setAttribute("type", "button");
-        button3.setAttribute("value", row.schoolName);
-        button3.textContent = row.schoolName;
-        tdSN.appendChild(button3);
+        button3.onclick= function(){ document.getElementById('id02').style.display='block';};
+        button3.setAttribute("value", row.id);
+        button3.textContent = row.id;
+        tdID.appendChild(button3);
+        tr.appendChild(tdID);
+
+        const tdSN = document.createElement("td");
+        tdSN.textContent=row.schoolName;
         tr.appendChild(tdSN);
 
         const tdSE = document.createElement("td");

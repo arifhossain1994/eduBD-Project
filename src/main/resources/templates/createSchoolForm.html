@@ -16,132 +16,137 @@
             background-color: #c64242;
         }
 
+        .modal-backdrop
+        {
+            opacity:0.5 !important;
+        }
+
     </style>
 
 </head>
 <body>
-    <h1>EDUBD - Manage School Portal</h1>
+<h1>EDUBD - Manage School Portal</h1>
 
-    <button class="btn btn-success" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New School</button>
+<button class="btn btn-success" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add New School</button>
 
-    <div id="id01" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close"  title="Close Modal">&times;</span>
-        <form class="modal-content" id="createSchool" method="post" name="newSchoolForm">
-            <div class="container">
-                <h1>Add New School</h1>
-                <p>Please fill in this form to create an school account.</p>
-                <hr>
-                <label for="schoolName"><b>School Name</b></label>
-                <input type="text" id="schoolName" placeholder="Enter School Name" name="schoolName" required>
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close"  title="Close Modal">&times;</span>
+    <form class="modal-content" id="createSchool" method="post" name="newSchoolForm">
+        <div class="container">
+            <h1>Add New School</h1>
+            <p>Please fill in this form to create an school account.</p>
+            <hr>
+            <label for="schoolName"><b>School Name</b></label>
+            <input type="text" id="schoolName" placeholder="Enter School Name" name="schoolName" required>
 
-                <label for="schoolEmail"><b>School Email</b></label>
-                <input type="email" id="schoolEmail" placeholder="Enter School Email" name="schoolEmail" required>
+            <label for="schoolEmail"><b>School Email</b></label>
+            <input type="email" id="schoolEmail" placeholder="Enter School Email" name="schoolEmail" required>
 
-                <label for="schoolEmail-repeat"><b>Repeat School Email</b></label>
-                <input type="email" id="schoolEmail-repeat" placeholder="Repeat School Email" name="schoolEmail-repeat" required>
+            <label for="schoolEmail-repeat"><b>Repeat School Email</b></label>
+            <input type="email" id="schoolEmail-repeat" placeholder="Repeat School Email" name="schoolEmail-repeat" required>
 
-                <label for="schoolPhone"><b>School Phone Number</b></label>
-                <input type="tel" id="schoolPhone" placeholder="Enter School Phone" name="schoolPhone" required>
+            <label for="schoolPhone"><b>School Phone Number</b></label>
+            <input type="tel" id="schoolPhone" placeholder="Enter School Phone" name="schoolPhone" required>
 
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button id="submit" type="button" class="signupbtn" >Add New School</button>
-                </div>
-                <br>
-                <div id="feedback">
-
-                </div>
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button id="submit" type="button" class="signupbtn" >Add New School</button>
             </div>
-        </form>
-    </div>
+            <br>
+            <div id="feedback">
 
-
-
-
-    <div id="id02" class="modal2">
-        <span onclick="document.getElementById('id02').style.display='none'" class="close"  title="Close Modal">&times;</span>
-        <form class="modal-content" id="updateSchool" method="post" name="updateSchoolForm">
-            <div class="container">
-                <h1>Update School Information</h1>
-                <p>Please fill in this form to update the school account.</p>
-                <hr>
-                <label for="updateSchoolName"><b>School Name</b></label>
-                <input type="text" id="updateSchoolName">
-
-                <label for="updateSchoolEmail"><b>School Email</b></label>
-                <input type="email" id="updateSchoolEmail" >
-
-                <label for="updateSchoolEmail-repeat"><b>Repeat School Email</b></label>
-                <input type="email" id="updateSchoolEmail-repeat">
-
-                <label for="updateSchoolWebsite"><b>School Website</b></label>
-                <input type="text" id="updateSchoolWebsite">
-
-                <label for="updateSchoolPhone"><b>School Phone Number</b></label>
-                <input type="tel" id="updateSchoolPhone">
-
-                <label for="updateSchoolAddress1"><b>Address 1</b></label>
-                <input type="text" id="updateSchoolAddress1">
-
-                <label for="updateSchoolAddress2"><b>Address 2</b></label>
-                <input type="text" id="updateSchoolAddress2">
-
-                <label for="updateSchoolCity"><b>City</b></label>
-                <input type="text" id="updateSchoolCity">
-
-                <label for="updateSchoolState"><b>State</b></label>
-                <input type="text" id="updateSchoolState">
-
-                <label for="updateSchoolZip"><b>Zip</b></label>
-                <input type="text" id="updateSchoolZip">
-
-                <label for="updateSchoolCountry"><b>Country</b></label>
-                <input type="text" id="updateSchoolCountry">
-
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button id="updateSchoolSubmit" type="button" class="signupbtn" >Update School Information</button>
-                </div>
-                <br>
-                <div id="updateSchoolFeedback">
-
-                </div>
             </div>
-        </form>
-    </div>
-
-    <div id="statusChangeButtonAction">
-
-    </div>
-
-
-    <div id="AllSchools" class="AllSchools">
-        <h3>All Schools</h3>
-        <div>
-            <table id="allSchoolsTable" class="table table-bordered" >
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>School Name</th>
-                        <th>School Email</th>
-                        <th>School Website</th>
-                        <th>School Address</th>
-                        <th>School Phone</th>
-                        <th>Status</th>
-                        <th>Created</th>
-                        <th>Updated</th>
-                        <th>Modify</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                </tbody>
-            </table>
         </div>
-    </div>
+    </form>
+</div>
 
-    <p id="showData" onload=" loadAllSchools()">
+
+
+
+<div id="id02" class="modal">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close"  title="Close Modal">&times;</span>
+    <form class="modal-content" id="updateSchool" method="post" name="updateSchoolForm">
+        <div class="container">
+            <h1>Update School Information</h1>
+            <p>Please fill in this form to update the school account.</p>
+            <hr>
+            <label for="updateSchoolName"><b>School Name</b></label>
+            <input type="text" id="updateSchoolName">
+
+            <label for="updateSchoolEmail"><b>School Email</b></label>
+            <input type="email" id="updateSchoolEmail" >
+
+            <label for="updateSchoolEmail-repeat"><b>Repeat School Email</b></label>
+            <input type="email" id="updateSchoolEmail-repeat">
+
+            <label for="updateSchoolWebsite"><b>School Website</b></label>
+            <input type="text" id="updateSchoolWebsite">
+
+            <label for="updateSchoolPhone"><b>School Phone Number</b></label>
+            <input type="tel" id="updateSchoolPhone">
+
+            <label for="updateSchoolAddress1"><b>Address 1</b></label>
+            <input type="text" id="updateSchoolAddress1">
+
+            <label for="updateSchoolAddress2"><b>Address 2</b></label>
+            <input type="text" id="updateSchoolAddress2">
+
+            <label for="updateSchoolCity"><b>City</b></label>
+            <input type="text" id="updateSchoolCity">
+
+            <label for="updateSchoolState"><b>State</b></label>
+            <input type="text" id="updateSchoolState">
+
+            <label for="updateSchoolZip"><b>Zip</b></label>
+            <input type="text" id="updateSchoolZip">
+
+            <label for="updateSchoolCountry"><b>Country</b></label>
+            <input type="text" id="updateSchoolCountry">
+
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+                <button id="updateSchoolSubmit" type="button" class="signupbtn" >Update School Information</button>
+            </div>
+            <br>
+            <div id="updateSchoolFeedback">
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="statusChangeButtonAction">
+
+</div>
+
+
+<div id="AllSchools" class="AllSchools">
+    <h3>All Schools</h3>
+    <div>
+        <table id="allSchoolsTable" class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>School Name</th>
+                <th>School Email</th>
+                <th>School Website</th>
+                <th>School Address</th>
+                <th>School Phone</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Modify</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p id="showData" onload=" loadAllSchools()">
 
     <script type="text/javascript">
 
@@ -151,6 +156,7 @@
 
         // Get the modal. This is for the pop up add school form.
         let modal = document.getElementById('id01');
+
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target === modal) {
@@ -160,18 +166,49 @@
 
         // Get the modal. This is for the pop up update school form.
         let modal2 = document.getElementById('id02');
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target === modal2) {
-                modal2.style.display = "none";
+
+
+        // This will get the button press value from the all school table.
+        let idValue;
+        document.addEventListener('click', function(event) {
+            idValue = event.target.value;
+            console.log(idValue);
+            if(event.target.tagName==="BUTTON"){
+                loadOneSchoolWithId();
             }
-        }
+
+
+            function loadOneSchoolWithId(){
+                let request2=new XMLHttpRequest();
+                request2.open("GET", "School/id_"+idValue);
+                request2.setRequestHeader("Content-Type", "application/json");
+                request2.onreadystatechange = function() {
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        console.log("Single Email came back:  "+this.responseText);
+                    }
+                };
+                request2.onload=() =>{
+                    try{
+                        const json=JSON.parse(request2.responseText);
+                    }catch (e){
+                        console.log("Could not load one school data. \n");
+                    }
+                };
+                request2.send();
+            }
+        });
+
+            $(document).ready( function(){
+
+
+            });
+
 
 
     </script>
-        <script th:src="@{/script/addNewSchoolAdminPage.js}"></script>
-        <script th:src="@{/script/disableSchoolStatusAdmin.js}"></script>
-        <script th:src="@{/script/createTableWithAllSchool.js}"></script>
+    <script th:src="@{/script/addNewSchoolAdminPage.js}"></script>
+    <script th:src="@{/script/disableSchoolStatusAdmin.js}"></script>
+    <script th:src="@{/script/createTableWithAllSchool.js}"></script>
 
 
 </body>
