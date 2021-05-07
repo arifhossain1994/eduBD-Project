@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Manage School || EDUBD</title>
+    <title>EDUBD</title>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
@@ -10,12 +10,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>EDUBD - Manage School Portal</h1>
+<h1>Welcome to EDUBD Manage Portal</h1>
 
-    <div>
-        <a th:href="@{ManageSchool/School/SchoolCreate}">Create New School</a>
+<div>
+    <a th:href="@{ManageSchool/School}">Manage School</a>
+    <a th:href="@{ManageAdmin}">Manage Admin</a>
+    <a th:href="@{ManageTeacher}">Manage Instructors</a>
 
-    </div>
-
+</div>
 </body>
 </html>

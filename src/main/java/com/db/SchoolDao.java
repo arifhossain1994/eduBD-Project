@@ -49,7 +49,7 @@ public class SchoolDao extends BaseDao<School> {
     @Override
     public School read(Long id) {
         try {
-            return (School) this.jdbcTemplate.queryForObject(sql("readSchool"), new MapSqlParameterSource("id", id), rowMapper);
+            return this.jdbcTemplate.queryForObject(sql("readSchool"), new MapSqlParameterSource("id", id), rowMapper);
         } catch (EmptyResultDataAccessException e) {
             LOG.error(String.format("School Dao: couldn't get a user with id: %d" , id));
         }
@@ -58,7 +58,7 @@ public class SchoolDao extends BaseDao<School> {
 
     public School readByEmail (String email){
         try {
-            return (School) this.jdbcTemplate.queryForObject(sql("readSchoolByEmail"), new MapSqlParameterSource("school_email", email), rowMapper);
+            return this.jdbcTemplate.queryForObject(sql("readSchoolByEmail"), new MapSqlParameterSource("school_email", email), rowMapper);
         } catch (EmptyResultDataAccessException e) {
             LOG.error(String.format("School dao couldn't get a school with email: %s" , email));
         }
@@ -77,6 +77,7 @@ public class SchoolDao extends BaseDao<School> {
             throw new DaoException("Request to update a school received null id. ");
         }
         school.setUpdatedDate(LocalDateTime.now());
+        school.setUpdatedBy(null); //TODO
 
         int result = this.jdbcTemplate.update(sql("updateSchool"), new MapSqlParameterSource(rowMapper.mapObject(school)));
         if (result != 1 ){
@@ -86,15 +87,27 @@ public class SchoolDao extends BaseDao<School> {
     }
 
     @Override
-    public void delete(long id) { //TODO
-        School school=read(id);
-        school.setStatus("Inactive");
-        school.setUpdatedBy(null);// this will change later.
+    public void delete(long id) {
+    }
+
+    public void changeStatusByEmail(String email) {
+        School school=readByEmail(email);
+
+        if(school.getStatus().equals("DEACTIVE")){
+            school.setStatus("ACTIVE");
+        }
+        else{
+            school.setStatus("DEACTIVE");
+        }
+        school.setUpdatedBy(null);// TODO
         school.setUpdatedDate(LocalDateTime.now());
-        int result = this.jdbcTemplate.update(sql("deleteSchool"),new MapSqlParameterSource("id", id));
+        int result = this.jdbcTemplate.update(sql("deleteSchool"),new MapSqlParameterSource(rowMapper.mapObject(school)));//"school_email", email));
         if(result != 1){
-            throw new DaoException(String.format("School Dao: Failed attempt to update user %s affected %s rows", id, result));
+            throw new DaoException(String.format("School Dao: Failed attempt to disable school %s affected %s rows", email, result));
         }
 
     }
+
+
+
 }

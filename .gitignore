@@ -49,4 +49,5 @@ mvn.cmd
 mvnDebug
 mvnDebug.cmd
 mvnyjp
+m2.conf
 

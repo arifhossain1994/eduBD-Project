@@ -17,4 +17,5 @@ public class BaseModel {
     private LocalDateTime createdDate;
     @ApiModelProperty(hidden = true)
     private LocalDateTime updatedDate;
+
 }
