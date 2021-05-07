@@ -1,6 +1,6 @@
 // disableSchoolStatusAdmin.js
 
-//This function disables the status of a school.
+//This function disables the status of a school with disable button
 $(document).ready( function(){
     let readButton= document.getElementById("allSchoolTableDisable");
     $(readButton).click(function(e){
@@ -23,6 +23,7 @@ $(document).ready( function(){
         }
         xhr2.send(buttonValue);
 
+
     });
 });
 
@@ -31,7 +32,7 @@ $(document).ready( function(){
 
 
 //This function enables the status of a school.
-$(document).ready( function(){
+/*$(document).ready( function(){
     let readButton2= document.getElementById("allSchoolTableEnable");
     $(readButton2).click(function(e2){
         e2.preventDefault();
@@ -56,6 +57,6 @@ $(document).ready( function(){
         }
         xhr3.send(buttonValue2);
     });
-});
+});*/
 
 

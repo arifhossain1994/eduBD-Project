@@ -77,21 +77,18 @@ function populateAllSchool(json) {
         const tdModify = document.createElement("td");
         //tdModify.textContent="";
 
+        let button = document.createElement("BUTTON");
+        button.setAttribute("id", "allSchoolTableDisable");
+        button.setAttribute("type", "button");
+        button.setAttribute("value", row.schoolEmail);
+
         if (row.status === "DEACTIVE") {
-            let button2 = document.createElement("BUTTON");
-            button2.setAttribute("id", "allSchoolTableEnable");
-            button2.setAttribute("class", "btn btn-success");
-            button2.setAttribute("type", "button");
-            button2.setAttribute("value", row.schoolEmail);
-            button2.textContent = "Enable";
-            tdModify.appendChild(button2);
+            button.setAttribute("class", "btn btn-success");
+            button.textContent = "Enable";
+            tdModify.appendChild(button);
             tr.appendChild(tdModify);
         } else {
-            let button = document.createElement("BUTTON");
-            button.setAttribute("id", "allSchoolTableDisable");
             button.setAttribute("class", "btn btn-danger");
-            button.setAttribute("type", "button");
-            button.setAttribute("value", row.schoolEmail);
             button.textContent = "Disable";
             tdModify.appendChild(button);
             tr.appendChild(tdModify);

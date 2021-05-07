@@ -66,4 +66,5 @@ WHERE
 SELECT * from teachers;
 
 
+
 --INSERT INTO teachers VALUES ( 1,'Arif Hossain','Teacher@uwm.edu','Teacher123','active','Teacher',NOW(),NOW(),'Teacher',5000,6000);
